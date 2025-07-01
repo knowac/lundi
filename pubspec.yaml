@@ -51,6 +51,7 @@ dependencies:
   email_validator: ^3.0.0
   wc_form_validators: ^1.1.0
   fancy_password_field: ^2.0.8
+  json_annotation: ^4.9.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -1,0 +1,26 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        generate_for:
+          include:
+            - lib/features/*/domain/models/*.dart
+            - lib/shared/models/*.dart
+            - lib/models/*.dart
+      riverpod_generator:
+        generate_for:
+          include:
+            - lib/features/*/presentation/providers/*.dart
+            - lib/shared/providers/**/*.dart
+            - lib/shared/providers/*.dart
+            - lib/features/*/data/repositories/*.dart
+            - lib/providers/*.dart
+            - lib/providers/**/*.dart
+      json_serializable:
+        generate_for:
+          include:
+            - lib/features/*/domain/models/*.dart
+            - lib/shared/models/*.dart
+            - lib/models/*.dart
+        options:
+          explicit_to_json: true
