@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "835037683540",
+    "project_id": "lundi-4261c",
+    "storage_bucket": "lundi-4261c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835037683540:android:e1633eda3a2daa32dfb2c1",
+        "android_client_info": {
+          "package_name": "com.lundi.lundi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-KDKsENfFYqtpBMogT2hEw3aMFhUYyGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
