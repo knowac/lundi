@@ -25,5 +25,5 @@ class LundiNavigationBarIcon extends StatelessWidget {
 class LundiNavigationBarItem extends BottomNavigationBarItem {
   final IconData? iconData;
   LundiNavigationBarItem({required this.iconData})
-      : super(icon: LundiNavigationBarIcon(icon: iconData));
+      : super(icon: LundiNavigationBarIcon(icon: iconData), label: '');
 }
