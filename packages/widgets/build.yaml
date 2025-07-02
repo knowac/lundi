@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      # Dodaj tu buildery, jeśli są potrzebne dla widgetów
+      # Przykład:
+      # freezed:
+      #   enabled: true

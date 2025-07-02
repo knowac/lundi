@@ -1,0 +1,68 @@
+name: lundi_app
+description: "Lundi - Travel planning helper (app package)"
+version: 1.0.0+1
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: "^3.8.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+  flutter_riverpod: ^2.6.1
+  freezed_annotation: ^3.0.0
+  figma_squircle: ^0.6.3
+  dot_navigation_bar: ^1.0.2
+  flutter_svg: ^2.2.0
+  riverpod_annotation: ^2.6.1
+  validators: ^3.0.0
+  go_router: ^15.1.3
+  shared_preferences: ^2.5.3
+  flutter_sliding_box: ^1.1.5
+  animated_bottom_navigation_bar: ^1.4.0
+  collection: any
+  dio: ^5.8.0+1
+  firebase_core: ^3.15.0
+  firebase_auth: ^5.6.1
+  cloud_firestore: ^5.6.10
+  email_validator: ^3.0.0
+  wc_form_validators: ^1.2.0
+  fancy_password_field: ^2.0.8
+  cupertino_icons: ^1.0.8
+  json_annotation: ^4.9.0
+  riverpod_generator: ^2.6.5
+  flutter_localizations:
+    sdk: flutter
+  shared:
+    path: ../shared
+  feature_auth:
+    path: ../feature_auth
+  feature_home:
+    path: ../feature_home
+  feature_plan:
+    path: ../feature_plan
+  feature_assistant:
+    path: ../feature_assistant
+  feature_edit:
+    path: ../feature_edit
+  widgets:
+    path: ../widgets
+
+dev_dependencies:
+  json_serializable: ^6.9.5
+  build_runner: ^2.5.4
+  custom_lint: ^0.7.5
+  flutter_lints: ^6.0.0
+  freezed: ^3.0.6
+  riverpod_lint: ^2.6.5
+  riverpod_generator: ^2.6.5
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - images/
