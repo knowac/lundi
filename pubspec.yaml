@@ -72,14 +72,13 @@ workspace:
 
 melos:
   scripts:
+    unit_test:
+      run: melos exec --dir-exists="test" --fail-fast -- flutter test --no-pub --coverage
+      description: Run all Flutter tests in this project.
     build_all:
       run: melos exec -- "dart run build_runner build --delete-conflicting-outputs"
-      description: "Uruchom build_runner build we wszystkich packages"
     watch_all:
       run: melos exec -- "dart run build_runner watch --delete-conflicting-outputs"
-      description: "Uruchom build_runner watch we wszystkich packages"
     upgrade_all:
       run: melos exec --concurrency=1 -- "flutter pub upgrade"
-      description: "Upgrade all packages"
-
 
