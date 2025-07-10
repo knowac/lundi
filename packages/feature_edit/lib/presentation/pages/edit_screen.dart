@@ -1,3 +1,4 @@
+import 'package:feature_edit/presentation/providers/region_map_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
@@ -62,12 +63,12 @@ class _EditScreenState extends ConsumerState<EditScreen>
           child: Container(
             height: double.infinity,
             color: colorScheme.secondaryContainer,
-            child: Image.asset('images/map.png', fit: BoxFit.cover),
+            child: ref.read(regionMapProvider),
           ),
         ),
         SlidingBox(
           style: BoxStyle.sheet,
-          minHeight: height * 0.25,
+          minHeight: height * 0.1,
           maxHeight: height * 0.75,
           color: colorScheme.surface,
           draggableIconBackColor: colorScheme.surface,

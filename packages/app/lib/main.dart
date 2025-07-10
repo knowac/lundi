@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:app/di/service_locator.dart';
+import 'package:app/firebase_options.dart';
+import 'package:app/providers/router_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lundi_app/firebase_options.dart';
-import 'package:lundi_app/providers/router_provider.dart';
 import 'package:shared/generated/l10n.dart';
 import 'package:shared/styles/theme.dart';
 import 'package:shared/utils/util.dart';
@@ -17,14 +18,16 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final binding = WidgetsFlutterBinding.ensureInitialized();
-
+  setupLocator();
   // Preload all assets to prevent flash when they are loaded.
   binding.deferFirstFrame();
   binding.addPostFrameCallback((_) async {
     final context = binding.rootElement;
     if (context != null) {
       // Run any sync or awaited async function you want to wait for before showing your UI
-      await _precacheAssets(AssetImage("images/background.jpg"));
+      await _precacheAssets(
+        AssetImage("packages/shared/lib/images/background.jpg"),
+      );
     }
     binding.allowFirstFrame();
   });
@@ -78,7 +81,10 @@ class Lundi extends ConsumerStatefulWidget {
 class _LundiState extends ConsumerState<Lundi> {
   @override
   void didChangeDependencies() {
-    precacheImage(const AssetImage("images/lundi_logo.png"), context);
+    precacheImage(
+      const AssetImage("packages/shared/lib/images/lundi_logo.png"),
+      context,
+    );
     super.didChangeDependencies();
   }
 

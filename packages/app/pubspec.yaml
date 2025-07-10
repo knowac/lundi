@@ -1,5 +1,5 @@
-name: lundi_app
-description: "Lundi - Travel planning helper (app package)"
+name: app
+description: "Lundi - Travel planning helper (core package)"
 version: 1.0.0+1
 publish_to: 'none'
 resolution: workspace
@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   json_annotation: ^4.9.0
   riverpod_generator: ^2.6.5
+  get_it: ^8.0.3
   flutter_localizations:
     sdk: flutter
   shared:
@@ -47,6 +48,8 @@ dependencies:
     path: ../feature_assistant
   feature_edit:
     path: ../feature_edit
+  feature_show_map:
+    path: ../feature_show_map
   widgets:
     path: ../widgets
 
@@ -63,5 +66,3 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
-  assets:
-    - images/

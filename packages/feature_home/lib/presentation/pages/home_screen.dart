@@ -19,7 +19,7 @@ class HomeScreen extends ConsumerWidget {
                   MediaQuery.of(context).size.width
               ? BoxFit.fitHeight
               : BoxFit.fitWidth,
-          image: AssetImage("images/background.jpg"),
+          image: AssetImage("packages/shared/lib/images/background.jpg"),
         ),
       ),
       child: Center(

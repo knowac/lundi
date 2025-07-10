@@ -57,9 +57,6 @@ flutter:
   generate: true
   uses-material-design: true
 
-  assets:
-    - images/
-
 workspace:
   - packages/shared
   - packages/widgets
@@ -68,7 +65,12 @@ workspace:
   - packages/feature_home
   - packages/feature_assistant
   - packages/feature_edit
+  - packages/feature_show_map
+  - packages/feature_select_poi
   - packages/app
+
+flutter_intl:
+  enabled: true
 
 melos:
   scripts:

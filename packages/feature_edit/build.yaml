@@ -11,9 +11,14 @@ targets:
             - lib/presentation/providers/*.dart
             - lib/data/repositories/*.dart
             - lib/domain/models/*.dart
+            - lib/data/data_source/*.dart
       json_serializable:
         generate_for:
           include:
             - lib/domain/models/*.dart
         options:
           explicit_to_json: true
+      mockito:mockito:
+        generate_for:
+          include:
+            - test/**/*_test.dart

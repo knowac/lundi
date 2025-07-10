@@ -2,7 +2,7 @@
 
 A modern Flutter application designed to help users manage their trips
 
-![Lundi Logo](images/lundi_logo.png)
+![Lundi Logo](packages/shared/lib/images/lundi_logo.png)
 
 ## Overview
 

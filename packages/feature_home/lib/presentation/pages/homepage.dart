@@ -92,7 +92,9 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
                 padding: const EdgeInsets.only(left: 16, right: 8),
                 child: Hero(
                   tag: "logo",
-                  child: Image.asset('images/lundi_logo.png'),
+                  child: Image.asset(
+                    'packages/shared/lib/images/lundi_logo.png',
+                  ),
                 ),
               ),
               Text(
