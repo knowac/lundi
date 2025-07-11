@@ -12,6 +12,7 @@ targets:
             - lib/presentation/providers/*.dart
             - lib/data/**/*.dart
             - lib/domain/**/*.dart
+            - lib/di/{*,**/*}.dart
       json_serializable:
         generate_for:
           include:
