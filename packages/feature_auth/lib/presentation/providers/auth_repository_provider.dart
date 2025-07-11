@@ -7,11 +7,7 @@ import 'package:shared/constants/firebase_constants.dart';
 part 'auth_repository_provider.g.dart';
 
 @riverpod
-AuthRepository authRepository(Ref ref) {
-  return AuthRepository();
-}
+AuthRepository authRepository(Ref ref) => AuthRepository();
 
 @riverpod
-Stream<User?> authStateStream(Ref ref) {
-  return kFbAuth.authStateChanges();
-}
+Stream<User?> authStateStream(Ref ref) => kFbAuth.authStateChanges();

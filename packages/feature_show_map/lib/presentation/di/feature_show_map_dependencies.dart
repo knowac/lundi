@@ -4,7 +4,5 @@ import 'package:shared/interfaces/show_map.dart';
 
 class ShowMapImpl implements ShowMap {
   @override
-  Widget regionMap() {
-    return RegionMap();
-  }
+  Widget regionMap() => const RegionMap();
 }

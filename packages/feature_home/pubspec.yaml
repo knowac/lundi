@@ -1,37 +1,34 @@
 name: feature_home
-description: Home feature package
 version: 0.1.0
-publish_to: 'none'
-resolution: workspace
-
+publish_to: none
 environment:
-  sdk: "^3.8.0"
-
+  sdk: ^3.8.0
+description: Home feature package
 dependencies:
+  animated_bottom_navigation_bar: ^1.4.0
+  figma_squircle: ^0.6.3
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
-  freezed_annotation: ^3.0.0
-  riverpod_annotation: ^2.6.1
-  json_serializable: ^6.9.5
-  riverpod_generator: ^2.6.5
-  google_fonts: ^6.2.1
-  go_router: ^15.1.3
-  figma_squircle: ^0.6.3
-  animated_bottom_navigation_bar: ^1.4.0
   flutter_sliding_box: ^1.1.5
+  freezed_annotation: ^3.0.0
+  go_router: ^15.1.3
+  google_fonts: ^6.2.1
   intl: any
+  json_serializable: ^6.9.5
+  riverpod_annotation: ^2.6.1
+  riverpod_generator: ^2.6.5
   shared:
     path: ../shared
   widgets:
     path: ../widgets
-
 dev_dependencies:
+  build_runner: ^2.5.4
   flutter_test:
     sdk: flutter
-  build_runner: ^2.5.4
   freezed: ^3.0.6
-
+  pubspec_dependency_sorter: ^1.0.5
+resolution: workspace
 flutter:
   generate: true
   uses-material-design: true

@@ -10,8 +10,8 @@ targets:
         generate_for:
           include:
             - lib/presentation/providers/*.dart
-            - lib/data/repositories/*.dart
-            - lib/domain/models/*.dart
+            - lib/data/**/*.dart
+            - lib/domain/**/*.dart
       json_serializable:
         generate_for:
           include:
@@ -19,7 +19,3 @@ targets:
             - lib/data/models/*.dart
         options:
           explicit_to_json: true
-      mockito:mockito:
-        generate_for:
-          include:
-            - test/**/*_test.dart

@@ -5,7 +5,5 @@ import 'package:shared/interfaces/show_map.dart';
 
 class ShowMapDataSourceImpl implements ShowMapDataSource {
   @override
-  Widget regionMap() {
-    return getIt<ShowMap>().regionMap();
-  }
+  Widget regionMap() => getIt<ShowMap>().regionMap();
 }

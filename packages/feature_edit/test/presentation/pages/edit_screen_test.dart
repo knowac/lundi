@@ -14,7 +14,7 @@ import 'package:shared/providers/plan_provider.dart';
 class MockPlan2 extends AutoDisposeAsyncNotifier<List<PlanItem>>
     with Mock
     implements Plan {
-  final List<PlanItem> _plan = [
+  final _plan = <PlanItem>[
     PlanItem(date: DateTime.parse('2024-06-10'), place: 'Reykjavik'),
     PlanItem(date: DateTime.parse('2024-06-11'), place: 'Thingvellir'),
     PlanItem(date: DateTime.parse('2024-06-12'), place: 'Hengifoss'),
@@ -24,19 +24,18 @@ class MockPlan2 extends AutoDisposeAsyncNotifier<List<PlanItem>>
   ];
 
   @override
-  FutureOr<List<PlanItem>> build() async {
-    return Future.value(_plan);
-  }
+  FutureOr<List<PlanItem>> build() => Future.value(_plan);
 
   // void fetch() async {
   //   state = AsyncLoading();
   //   state = AsyncValue.data(_plan);
   // }
 
-  void reorder(int oldIndex, int newIndex) async {
-    state = AsyncLoading();
+  @override
+  Future<void> reorder(int oldIndex, int newIndex) async {
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      // TODO Calculate routes for all points and update times
+      // TODOCalculate routes for all points and update times
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }
@@ -55,31 +54,29 @@ void main() {
     mockPlan = MockPlan2();
   });
 
-  Future<void> pumpApp(WidgetTester tester) async {
-    return mockNetworkImagesFor(
-      () => tester.pumpWidget(
-        ProviderScope(
-          overrides: [planProvider.overrideWith(() => mockPlan)],
-          child: MaterialApp(
-            theme: ThemeData(colorScheme: ColorScheme.light()),
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            home: Scaffold(body: const EditScreen()),
-          ),
+  Future<void> pumpApp(WidgetTester tester) async => mockNetworkImagesFor(
+    () => tester.pumpWidget(
+      ProviderScope(
+        overrides: [planProvider.overrideWith(() => mockPlan)],
+        child: MaterialApp(
+          theme: ThemeData(colorScheme: const ColorScheme.light()),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          home: const Scaffold(body: EditScreen()),
         ),
       ),
-    );
-  }
+    ),
+  );
 
   group('EditScreen', () {
     testWidgets('calls fetch on init', (tester) async {
       await pumpApp(tester);
-      await tester.pumpAndSettle(Duration(seconds: 1));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
       final context = tester.element(find.byType(EditScreen));
       final c = ProviderScope.containerOf(context);
 
@@ -87,7 +84,7 @@ void main() {
     });
     testWidgets('has exactly 6 elements', (tester) async {
       await pumpApp(tester);
-      await tester.pumpAndSettle(Duration(seconds: 1));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.byType(ListTile), findsNWidgets(6));
     });

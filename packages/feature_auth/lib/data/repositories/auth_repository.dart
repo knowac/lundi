@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared/constants/firebase_constants.dart';
-import 'package:shared/handle_exception.dart';
+import 'package:shared/helpers/handle_exception.dart';
 
 class AuthRepository {
   User? get currentUser => kFbAuth.currentUser;
@@ -20,7 +20,7 @@ class AuthRepository {
         'name': name,
         'email': email,
       });
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -31,7 +31,7 @@ class AuthRepository {
         email: email,
         password: password,
       );
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -39,7 +39,7 @@ class AuthRepository {
   Future<void> signout() async {
     try {
       await kFbAuth.signOut();
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -47,7 +47,7 @@ class AuthRepository {
   Future<void> changePassword(String password) async {
     try {
       await currentUser!.updatePassword(password);
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -55,7 +55,7 @@ class AuthRepository {
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await kFbAuth.sendPasswordResetEmail(email: email);
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -63,7 +63,7 @@ class AuthRepository {
   Future<void> sendEmailVerification() async {
     try {
       await currentUser!.sendEmailVerification();
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -71,7 +71,7 @@ class AuthRepository {
   Future<void> reloadUser() async {
     try {
       await currentUser!.reload();
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }
@@ -81,7 +81,7 @@ class AuthRepository {
       await currentUser!.reauthenticateWithCredential(
         EmailAuthProvider.credential(email: email, password: password),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       throw handleException(e);
     }
   }

@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'tiles_provider.g.dart';
 
+/// Tiles provider
 @riverpod
 class Tiles extends _$Tiles {
   @override
@@ -16,11 +17,11 @@ class Tiles extends _$Tiles {
     final tempPath = tempDir.path;
     final tilesPath = '$tempPath/map.mbtiles';
 
-    if (await File(tilesPath).exists()) {
+    if (File(tilesPath).existsSync()) {
       File(tilesPath).deleteSync();
     }
 
-    if (!await File(tilesPath).exists()) {
+    if (!File(tilesPath).existsSync()) {
       final data = await rootBundle.load(tilesAssetPath);
       final bytes = data.buffer.asUint8List(
         data.offsetInBytes,

@@ -6,8 +6,8 @@ part 'plan_item.g.dart';
 @unfreezed
 abstract class PlanItem with _$PlanItem {
   const factory PlanItem({
-    required final DateTime? date,
-    required final String place,
+    required DateTime? date,
+    required String place,
   }) = _PlanItem;
 
   factory PlanItem.fromJson(Map<String, dynamic> json) =>

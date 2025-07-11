@@ -7,10 +7,9 @@ part 'signup_provider.g.dart';
 class Signup extends _$Signup {
   Object? _key;
   @override
-  FutureOr<void> build() async {
+  FutureOr<void> build() {
     _key = Object();
     ref.onDispose(() => _key = null);
-    return;
   }
 
   Future<void> signup({
@@ -18,7 +17,7 @@ class Signup extends _$Signup {
     required String email,
     required String password,
   }) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
       final authRepository = ref.read(authRepositoryProvider);

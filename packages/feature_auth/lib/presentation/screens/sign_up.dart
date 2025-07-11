@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:feature_auth/presentation/providers/signup_provider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,9 @@ import 'package:shared/config/route_names.dart';
 import 'package:shared/generated/l10n.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
+/// SignUp Widget
 class SignUp extends ConsumerStatefulWidget {
+  /// Constructor
   const SignUp({super.key});
 
   @override
@@ -21,7 +25,7 @@ class _SignUpState extends ConsumerState<SignUp> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isPasswordHidden = true;
+  var _isPasswordHidden = true;
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
@@ -33,7 +37,7 @@ class _SignUpState extends ConsumerState<SignUp> {
     super.dispose();
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
     });
@@ -54,18 +58,18 @@ class _SignUpState extends ConsumerState<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    print("SignUp");
+    print('SignUp');
     ref.listen(signupProvider, (prev, next) {
       next.whenOrNull(
         error: (error, st) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Error"),
-                content: Text("Error has occurred: $error"),
-              );
-            },
+          unawaited(
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Error'),
+                content: Text('Error has occurred: $error'),
+              ),
+            ),
           );
         },
       );
@@ -73,16 +77,15 @@ class _SignUpState extends ConsumerState<SignUp> {
     final signupState = ref.watch(signupProvider);
 
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 130, bottom: 130),
+      padding: const EdgeInsets.only(top: 130, bottom: 130),
       controller: _scrollController,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
           autovalidateMode: _autovalidateMode,
           key: _formKey,
           child: Column(
             spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -113,7 +116,7 @@ class _SignUpState extends ConsumerState<SignUp> {
                 decoration: InputDecoration(
                   fillColor: Theme.of(context).colorScheme.onPrimary,
                   filled: true,
-                  border: OutlineInputBorder(gapPadding: 6),
+                  border: const OutlineInputBorder(gapPadding: 6),
                   labelText: S.of(context).settingsAuthName,
                   labelStyle: GoogleFonts.roboto().copyWith(
                     color: Theme.of(context).colorScheme.primary,
@@ -133,7 +136,7 @@ class _SignUpState extends ConsumerState<SignUp> {
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.onPrimary,
                     filled: true,
-                    border: OutlineInputBorder(gapPadding: 6),
+                    border: const OutlineInputBorder(gapPadding: 6),
                     labelText: S.of(context).settingsAuthEmail,
                     labelStyle: GoogleFonts.roboto().copyWith(
                       color: Theme.of(context).colorScheme.primary,
@@ -165,14 +168,12 @@ class _SignUpState extends ConsumerState<SignUp> {
                     }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: rules
                           .map(
                             (rule) => rule.validate(value)
                                 ? Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.check,
@@ -195,7 +196,6 @@ class _SignUpState extends ConsumerState<SignUp> {
                                 : Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.close,
@@ -223,7 +223,7 @@ class _SignUpState extends ConsumerState<SignUp> {
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.onPrimary,
                     filled: true,
-                    border: OutlineInputBorder(gapPadding: 6),
+                    border: const OutlineInputBorder(gapPadding: 6),
                     labelText: S.of(context).settingsAuthPassword,
                     labelStyle: GoogleFonts.roboto().copyWith(
                       color: Theme.of(context).colorScheme.primary,
@@ -264,12 +264,14 @@ class _SignUpState extends ConsumerState<SignUp> {
                           Theme.of(context).colorScheme.primary,
                           Theme.of(context).colorScheme.tertiary,
                         ],
-                        stops: [0, 100],
+                        stops: const [0, 100],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(80),
+                      ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 16,
                       ),
@@ -291,7 +293,9 @@ class _SignUpState extends ConsumerState<SignUp> {
                 tag: 'settingsAuthTextButton',
                 child: TextButton(
                   onPressed: () {
-                    GoRouter.of(context).pushNamed(RouteNames.settingsSignIn);
+                    unawaited(
+                      GoRouter.of(context).pushNamed(RouteNames.settingsSignIn),
+                    );
                   },
                   child: Text.rich(
                     TextSpan(

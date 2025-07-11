@@ -8,16 +8,15 @@ class ForgotPassword extends _$ForgotPassword {
   Object? _key;
 
   @override
-  FutureOr<void> build() async {
+  FutureOr<void> build() {
     _key = Object();
     ref.onDispose(() {
       _key = null;
     });
-    return;
   }
 
   Future<void> resetPassword({required String email}) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
       await ref.read(authRepositoryProvider).sendPasswordResetEmail(email);

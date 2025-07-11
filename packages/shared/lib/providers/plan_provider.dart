@@ -1,12 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../models/plan_item.dart';
+import 'package:shared/models/plan_item.dart';
 
 part 'plan_provider.g.dart';
 
+/// Plan provider
 @riverpod
 class Plan extends _$Plan {
-  final List<PlanItem> _plan = [
+  final _plan = <PlanItem>[
     PlanItem(date: DateTime.parse('2024-06-10'), place: 'Reykjavik'),
     PlanItem(date: DateTime.parse('2024-06-11'), place: 'Thingvellir'),
     PlanItem(date: DateTime.parse('2024-06-12'), place: 'Hengifoss'),
@@ -16,24 +16,25 @@ class Plan extends _$Plan {
   ];
 
   @override
-  FutureOr<List<PlanItem>> build() async {
-    return Future.value(_plan);
-  }
+  FutureOr<List<PlanItem>> build() => Future.value(_plan);
 
-  void fetch() async {
-    state = AsyncLoading();
+  /// Fetch plan
+  void fetch() {
+    state = const AsyncLoading();
     state = AsyncValue.data(_plan);
   }
 
-  void reorder(int oldIndex, int newIndex) async {
-    state = AsyncLoading();
+  /// Reorder plan
+  Future<void> reorder(int oldIndex, int newIndex) async {
+    var updatedIndex = newIndex;
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      // TODO Calculate routes for all points and update times
-      if (oldIndex < newIndex) {
-        newIndex -= 1;
+      // TODOCalculate routes for all points and update times
+      if (oldIndex < updatedIndex) {
+        updatedIndex -= 1;
       }
       final item = _plan.removeAt(oldIndex);
-      _plan.insert(newIndex, item);
+      _plan.insert(updatedIndex, item);
       return _plan;
     });
   }

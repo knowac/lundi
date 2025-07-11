@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:feature_edit/presentation/providers/region_map_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +20,7 @@ class EditScreen extends ConsumerStatefulWidget {
 
 class _EditScreenState extends ConsumerState<EditScreen>
     with SingleTickerProviderStateMixin {
-  final BoxController _boxController = BoxController();
+  final _boxController = BoxController();
 
   @override
   void initState() {
@@ -41,7 +43,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
     ref.listen<AsyncValue<List<PlanItem>>>(planProvider, (previous, next) {
       next.whenOrNull(
         error: (o, e) {
-          GoRouter.of(context).pushNamed(RouteNames.home);
+          unawaited(GoRouter.of(context).pushNamed(RouteNames.home));
         },
         data: (plan) {
           setState(() {
@@ -75,90 +77,84 @@ class _EditScreenState extends ConsumerState<EditScreen>
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
           controller: _boxController,
           collapsed: true,
-          draggable: true,
           animationCurve: Curves.easeInOut,
-          bodyBuilder: (scrollController, boxPosition) {
-            return Column(
-              children: [
-                Container(
+          bodyBuilder: (scrollController, boxPosition) => Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      S.of(context).editTitle,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.agdasima().copyWith(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      S.of(context).editExplanation,
+                      style: GoogleFonts.roboto().copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ReorderableListView.builder(
+                onReorder: (from, to) {
+                  unawaited(ref.read(planProvider.notifier).reorder(from, to));
+                },
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (context, index) => Container(
+                  key: Key(index.toString()),
                   margin: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        S.of(context).editTitle,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.agdasima().copyWith(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
+                  decoration: index == _plan.length
+                      ? null
+                      : BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: colorScheme.outline,
+                            ),
+                          ),
                         ),
+                  child: ListTile(
+                    minVerticalPadding: 8,
+                    minTileHeight: 0,
+                    horizontalTitleGap: 8,
+                    leading: Text(
+                      index.toString(),
+                      style: GoogleFonts.roboto().copyWith(
+                        color: colorScheme.onSurface,
                       ),
-                      Text(
-                        S.of(context).editExplanation,
-                        style: GoogleFonts.roboto().copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                        ),
+                    ),
+                    trailing: Icon(
+                      Icons.more_vert,
+                      color: colorScheme.onSurface,
+                    ),
+                    titleAlignment: ListTileTitleAlignment.center,
+                    title: Text(
+                      _plan[index].date?.toString() ?? '',
+                      style: GoogleFonts.roboto().copyWith(
+                        color: colorScheme.onSurface,
                       ),
-                    ],
+                    ),
+                    subtitle: Text(
+                      _plan[index].place,
+                      style: GoogleFonts.roboto().copyWith(
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
                   ),
                 ),
-                ReorderableListView.builder(
-                  onReorder: (from, to) {
-                    ref.read(planProvider.notifier).reorder(from, to);
-                  },
-                  shrinkWrap: true,
-                  primary: false,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      key: Key(index.toString()),
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      decoration: index == _plan.length
-                          ? null
-                          : BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: colorScheme.outline,
-                                  width: 1,
-                                ),
-                              ),
-                            ),
-                      child: ListTile(
-                        minVerticalPadding: 8,
-                        minTileHeight: 0,
-                        horizontalTitleGap: 8,
-                        leading: Text(
-                          index.toString(),
-                          style: GoogleFonts.roboto().copyWith(
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        trailing: Icon(
-                          Icons.more_vert,
-                          color: colorScheme.onSurface,
-                        ),
-                        titleAlignment: ListTileTitleAlignment.center,
-                        title: Text(
-                          _plan[index].date?.toString() ?? "",
-                          style: GoogleFonts.roboto().copyWith(
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        subtitle: Text(
-                          _plan[index].place.toString(),
-                          style: GoogleFonts.roboto().copyWith(
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: _plan.length,
-                ),
-              ],
-            );
-          },
+                itemCount: _plan.length,
+              ),
+            ],
+          ),
         ),
         Positioned(
           bottom: 0,

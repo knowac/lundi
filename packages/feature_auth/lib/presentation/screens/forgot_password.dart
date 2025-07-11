@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:feature_auth/presentation/providers/forgot_password_provider.dart';
 import 'package:feature_auth/presentation/providers/signin_provider.dart';
 import 'package:feature_auth/presentation/providers/signup_provider.dart';
@@ -28,7 +30,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
     super.dispose();
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
     });
@@ -51,14 +53,14 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
     ref.listen(signupProvider, (prev, next) {
       next.whenOrNull(
         error: (error, st) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Error"),
-                content: Text("Error has occurred: $error"),
-              );
-            },
+          unawaited(
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Error'),
+                content: Text('Error has occurred: $error'),
+              ),
+            ),
           );
         },
       );
@@ -66,16 +68,15 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
     final signinState = ref.watch(signinProvider);
 
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 130, bottom: 130),
+      padding: const EdgeInsets.only(top: 130, bottom: 130),
       controller: _scrollController,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
           autovalidateMode: _autovalidateMode,
           key: _formKey,
           child: Column(
             spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -104,7 +105,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
                 FilledButton(
                   onPressed: signinState.isLoading ? null : _submit,
                   child: signinState.isLoading
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : Text(S.of(context).settingsAuthSignInForgotPassword),
                 ),
               ] else ...[

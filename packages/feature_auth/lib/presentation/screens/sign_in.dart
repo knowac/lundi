@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fancy_password_field/fancy_password_field.dart';
 import 'package:feature_auth/presentation/providers/signin_provider.dart';
 import 'package:feature_auth/presentation/providers/signup_provider.dart';
@@ -21,7 +23,7 @@ class _SignInState extends ConsumerState<SignIn> {
   final _scrollController = ScrollController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isPasswordHidden = true;
+  var _isPasswordHidden = true;
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   @override
@@ -32,7 +34,7 @@ class _SignInState extends ConsumerState<SignIn> {
     super.dispose();
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
     });
@@ -55,14 +57,14 @@ class _SignInState extends ConsumerState<SignIn> {
     ref.listen(signupProvider, (prev, next) {
       next.whenOrNull(
         error: (error, st) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Error"),
-                content: Text("Error has occurred: $error"),
-              );
-            },
+          unawaited(
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Error'),
+                content: Text('Error has occurred: $error'),
+              ),
+            ),
           );
         },
       );
@@ -70,16 +72,15 @@ class _SignInState extends ConsumerState<SignIn> {
     final signinState = ref.watch(signinProvider);
 
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 130, bottom: 130),
+      padding: const EdgeInsets.only(top: 130, bottom: 130),
       controller: _scrollController,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
           autovalidateMode: _autovalidateMode,
           key: _formKey,
           child: Column(
             spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -105,7 +106,7 @@ class _SignInState extends ConsumerState<SignIn> {
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.onPrimary,
                     filled: true,
-                    border: OutlineInputBorder(gapPadding: 6),
+                    border: const OutlineInputBorder(gapPadding: 6),
                     labelText: S.of(context).settingsAuthEmail,
                     labelStyle: GoogleFonts.roboto().copyWith(
                       color: Theme.of(context).colorScheme.primary,
@@ -137,14 +138,12 @@ class _SignInState extends ConsumerState<SignIn> {
                     }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: rules
                           .map(
                             (rule) => rule.validate(value)
                                 ? Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.check,
@@ -167,7 +166,6 @@ class _SignInState extends ConsumerState<SignIn> {
                                 : Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Icon(
                                         Icons.close,
@@ -195,7 +193,7 @@ class _SignInState extends ConsumerState<SignIn> {
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).colorScheme.onPrimary,
                     filled: true,
-                    border: OutlineInputBorder(gapPadding: 6),
+                    border: const OutlineInputBorder(gapPadding: 6),
                     labelText: S.of(context).settingsAuthPassword,
                     labelStyle: GoogleFonts.roboto().copyWith(
                       color: Theme.of(context).colorScheme.primary,
@@ -236,12 +234,14 @@ class _SignInState extends ConsumerState<SignIn> {
                           Theme.of(context).colorScheme.primary,
                           Theme.of(context).colorScheme.tertiary,
                         ],
-                        stops: [0, 100],
+                        stops: const [0, 100],
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(80),
+                      ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 16,
                       ),
@@ -266,9 +266,11 @@ class _SignInState extends ConsumerState<SignIn> {
                     tag: 'settingsAuthTextButton',
                     child: TextButton(
                       onPressed: () {
-                        GoRouter.of(
-                          context,
-                        ).pushNamed(RouteNames.settingsSignUp);
+                        unawaited(
+                          GoRouter.of(
+                            context,
+                          ).pushNamed(RouteNames.settingsSignUp),
+                        );
                       },
                       child: Text.rich(
                         TextSpan(
@@ -295,9 +297,11 @@ class _SignInState extends ConsumerState<SignIn> {
                   ),
                   TextButton(
                     onPressed: () {
-                      GoRouter.of(
-                        context,
-                      ).pushNamed(RouteNames.settingsForgotPassword);
+                      unawaited(
+                        GoRouter.of(
+                          context,
+                        ).pushNamed(RouteNames.settingsForgotPassword),
+                      );
                     },
                     child: Text.rich(
                       TextSpan(

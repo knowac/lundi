@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('LundiSlider renders', (WidgetTester tester) async {
+  testWidgets('LundiSlider renders', (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: LundiSlider(label: '')),
       ),
     );

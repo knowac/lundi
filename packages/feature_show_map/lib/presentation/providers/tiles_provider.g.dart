@@ -6,9 +6,11 @@ part of 'tiles_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tilesHash() => r'28e06f88d061ab51f7770e9a802c6bbdafe00f41';
+String _$tilesHash() => r'ca1b1e8d88cbb4f0265aea24732bc56a1075854a';
 
-/// See also [Tiles].
+/// Tiles provider
+///
+/// Copied from [Tiles].
 @ProviderFor(Tiles)
 final tilesProvider =
     AutoDisposeAsyncNotifierProvider<Tiles, MbTilesTileProvider>.internal(

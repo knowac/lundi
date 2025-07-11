@@ -29,52 +29,48 @@ class _RegionMapState extends ConsumerState<RegionMap> {
 
   late MapController _mapController;
   @override
-  Widget build(BuildContext context) {
-    return ref
-        .watch(tilesProvider)
-        .maybeWhen(
-          orElse: () => Placeholder(),
-          error: (error, stackTrace) => Center(child: Text(error.toString())),
-          data: (mbTilesProvider) {
-            return Stack(
-              alignment: Alignment.bottomRight,
-              clipBehavior: Clip.none,
-              children: [
-                FlutterMap(
-                  options: const MapOptions(
-                    initialCenter: _initialCenter,
-                    initialZoom: _initialZoom,
-                    maxZoom: 12,
-                    minZoom: _initialZoom,
-                  ),
-                  mapController: _mapController,
-                  children: [TileLayer(tileProvider: mbTilesProvider)],
+  Widget build(BuildContext context) => ref
+      .watch(tilesProvider)
+      .maybeWhen(
+        orElse: () => const Placeholder(),
+        error: (error, stackTrace) => Center(child: Text(error.toString())),
+        data: (mbTilesProvider) => Stack(
+          alignment: Alignment.bottomRight,
+          clipBehavior: Clip.none,
+          children: [
+            FlutterMap(
+              options: const MapOptions(
+                initialCenter: _initialCenter,
+                initialZoom: _initialZoom,
+                maxZoom: 12,
+                minZoom: _initialZoom,
+              ),
+              mapController: _mapController,
+              children: [TileLayer(tileProvider: mbTilesProvider)],
+            ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.2,
+              right: 16,
+              height: 40,
+              width: 40,
+              child: FloatingActionButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                onPressed: () {
+                  _mapController.moveAndRotate(
+                    _initialCenter,
+                    _initialZoom,
+                    0,
+                  );
+                },
+                child: const Icon(
+                  Icons.explore,
+                  size: 32,
+                  color: Colors.white,
                 ),
-                Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.2,
-                  right: 16,
-                  height: 40,
-                  width: 40,
-                  child: FloatingActionButton(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    onPressed: () {
-                      _mapController.moveAndRotate(
-                        _initialCenter,
-                        _initialZoom,
-                        0,
-                      );
-                    },
-                    child: const Icon(
-                      Icons.explore,
-                      size: 32,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-          loading: () => CircularProgressIndicator(),
-        );
-  }
+              ),
+            ),
+          ],
+        ),
+        loading: CircularProgressIndicator.new,
+      );
 }

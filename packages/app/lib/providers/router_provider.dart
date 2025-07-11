@@ -17,77 +17,78 @@ part 'router_provider.g.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey();
 
+/// Route Provider
 @riverpod
 GoRouter route(Ref ref) {
   final authState = ref.watch(authStateStreamProvider);
   return GoRouter(
     routes: [
       ShellRoute(
-        builder: (context, state, child) {
-          return MainScaffold(child: child);
-        },
+        builder: (context, state, child) => MainScaffold(child: child),
         routes: [
           GoRoute(
-            path: "/home",
+            path: '/home',
             name: RouteNames.home,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const HomeScreen());
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const HomeScreen(),
+            ),
           ),
           GoRoute(
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const PlanScreen());
-            },
-            path: "/plan",
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const PlanScreen(),
+            ),
+            path: '/plan',
             name: RouteNames.plan,
           ),
           GoRoute(
-            path: "/assist",
+            path: '/assist',
             name: RouteNames.assist,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const HomeScreen());
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const HomeScreen(),
+            ),
           ),
           GoRoute(
-            path: "/edit",
+            path: '/edit',
             name: RouteNames.edit,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const EditScreen());
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const EditScreen(),
+            ),
           ),
           GoRoute(
-            path: "/settings",
+            path: '/settings',
             name: RouteNames.settings,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(
-                state,
-                child: const SettingsScreen(),
-              );
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const SettingsScreen(),
+            ),
           ),
           GoRoute(
-            path: "/settings/sign_up",
+            path: '/settings/sign_up',
             name: RouteNames.settingsSignUp,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const SignUp());
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const SignUp(),
+            ),
           ),
           GoRoute(
-            path: "/settings/sign_in",
+            path: '/settings/sign_in',
             name: RouteNames.settingsSignIn,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(state, child: const SignIn());
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const SignIn(),
+            ),
           ),
           GoRoute(
-            path: "/settings/forgot_password",
+            path: '/settings/forgot_password',
             name: RouteNames.settingsForgotPassword,
-            pageBuilder: (context, state) {
-              return buildFadeTransitionPage(
-                state,
-                child: const ForgotPassword(),
-              );
-            },
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const ForgotPassword(),
+            ),
           ),
         ],
       ),
@@ -96,18 +97,18 @@ GoRouter route(Ref ref) {
         router.pushNamed(RouteNames.home, extra: state.error),
     initialLocation: '/home',
     navigatorKey: _rootNavigatorKey,
-    redirect: (context, state) async {
+    redirect: (context, state) {
       switch (authState) {
         case AsyncLoading():
           return '/home';
         case AsyncError(error: _):
-          return '/home'; // TODO Add error page
+          return '/home'; // TODOAdd error page
         case AsyncData(value: var _):
           final authenticated = authState.valueOrNull != null;
           final isAuthenticating =
-              (state.matchedLocation == '/settings/sign_up' ||
+              state.matchedLocation == '/settings/sign_up' ||
               state.matchedLocation == '/settings/sign_in' ||
-              state.matchedLocation == '/resetPassword');
+              state.matchedLocation == '/resetPassword';
           // final splashing = state.matchedLocation == '/splash';
           if (!authenticated) {
             return null;
@@ -118,7 +119,7 @@ GoRouter route(Ref ref) {
             return '/home';
           }
 
-          // TODO Add email verification
+          // TODOAdd email verification
           // if (kFbAuth.currentUser!.emailVerified) {
           //   return '/verifyEmail';
           // }
@@ -135,15 +136,16 @@ GoRouter route(Ref ref) {
   );
 }
 
+/// Fade transition
 CustomTransitionPage<dynamic> buildFadeTransitionPage(
   GoRouterState state, {
   required Widget child,
-}) {
-  return CustomTransitionPage(
-    key: state.pageKey,
-    child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return FadeTransition(opacity: animation, child: child);
-    },
-  );
-}
+}) => CustomTransitionPage(
+  key: state.pageKey,
+  child: child,
+  transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+      FadeTransition(
+        opacity: animation,
+        child: child,
+      ),
+);

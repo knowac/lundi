@@ -207,8 +207,8 @@ return $default(_that.code,_that.message,_that.plugin);case _:
 /// @nodoc
 
 
-class _CustomError implements CustomError {
-  const _CustomError({this.code = '', this.message = '', this.plugin = ''});
+class _CustomError extends CustomError {
+  const _CustomError({this.code = '', this.message = '', this.plugin = ''}): super._();
   
 
 @override@JsonKey() final  String code;

@@ -7,14 +7,13 @@ part 'signin_provider.g.dart';
 class Signin extends _$Signin {
   Object? _key;
   @override
-  FutureOr<void> build() async {
+  FutureOr<void> build() {
     _key = Object();
     ref.onDispose(() => _key = null);
-    return;
   }
 
   Future<void> signin({required String email, required String password}) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
       final authRepository = ref.read(authRepositoryProvider);

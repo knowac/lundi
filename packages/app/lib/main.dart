@@ -16,23 +16,25 @@ import 'package:shared/utils/util.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final binding = WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   // Preload all assets to prevent flash when they are loaded.
-  binding.deferFirstFrame();
-  binding.addPostFrameCallback((_) async {
-    final context = binding.rootElement;
-    if (context != null) {
-      // Run any sync or awaited async function you want to wait for before showing your UI
-      await _precacheAssets(
-        AssetImage("packages/shared/lib/images/background.jpg"),
-      );
-    }
-    binding.allowFirstFrame();
-  });
+  binding
+    ..deferFirstFrame()
+    ..addPostFrameCallback((_) async {
+      final context = binding.rootElement;
+      if (context != null) {
+        // Run any sync or awaited async function you want to wait for before
+        // showing your UI
+        await _precacheAssets(
+          const AssetImage('packages/shared/lib/images/background.jpg'),
+        );
+      }
+      binding.allowFirstFrame();
+    });
 
-  runApp(ProviderScope(child: const Lundi()));
+  runApp(const ProviderScope(child: Lundi()));
 }
 
 Future<void> _precacheAssets(ImageProvider provider) {
@@ -41,18 +43,18 @@ Future<void> _precacheAssets(ImageProvider provider) {
     devicePixelRatio: 1,
     platform: defaultTargetPlatform,
   );
-  final Completer<void> completer = Completer();
-  final ImageStream stream = provider.resolve(config);
+  final completer = Completer<void>();
+  final stream = provider.resolve(config);
 
   late final ImageStreamListener listener;
 
   listener = ImageStreamListener(
-    (ImageInfo image, bool sync) {
-      debugPrint("Image ${image.debugLabel} finished loading");
+    (image, sync) {
+      debugPrint('Image ${image.debugLabel} finished loading');
       completer.complete();
       stream.removeListener(listener);
     },
-    onError: (dynamic exception, StackTrace? stackTrace) {
+    onError: (exception, stackTrace) {
       completer.complete();
       stream.removeListener(listener);
       FlutterError.reportError(
@@ -71,7 +73,9 @@ Future<void> _precacheAssets(ImageProvider provider) {
   return completer.future;
 }
 
+/// Lundi class
 class Lundi extends ConsumerStatefulWidget {
+  /// Lundi constructor
   const Lundi({super.key});
 
   @override
@@ -81,9 +85,13 @@ class Lundi extends ConsumerStatefulWidget {
 class _LundiState extends ConsumerState<Lundi> {
   @override
   void didChangeDependencies() {
-    precacheImage(
-      const AssetImage("packages/shared/lib/images/lundi_logo.png"),
-      context,
+    unawaited(
+      precacheImage(
+        const AssetImage(
+          'packages/shared/lib/images/lundi_logo.png',
+        ),
+        context,
+      ),
     );
     super.didChangeDependencies();
   }
@@ -92,11 +100,15 @@ class _LundiState extends ConsumerState<Lundi> {
   Widget build(BuildContext context) {
     final router = ref.watch(routeProvider);
     final brightness = View.of(context).platformDispatcher.platformBrightness;
-    final textTheme = createTextTheme(context, "Roboto", "Roboto");
+    final textTheme = createTextTheme(
+      context,
+      'Roboto',
+      'Roboto',
+    );
     final theme = MaterialTheme(textTheme);
 
     return MaterialApp.router(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

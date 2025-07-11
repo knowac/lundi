@@ -6,6 +6,4 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'region_map_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Widget regionMap(Ref ref) {
-  return ShowMapDataSourceImpl().regionMap();
-}
+Widget regionMap(Ref ref) => ShowMapDataSourceImpl().regionMap();

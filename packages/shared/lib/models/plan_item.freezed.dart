@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlanItem {
 
- DateTime? get date; String get place;
+ DateTime? get date; set date(DateTime? value); String get place; set place(String value);
 /// Create a copy of PlanItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -206,8 +206,8 @@ class _PlanItem implements PlanItem {
   const _PlanItem({required this.date, required this.place});
   factory _PlanItem.fromJson(Map<String, dynamic> json) => _$PlanItemFromJson(json);
 
-@override final  DateTime? date;
-@override final  String place;
+@override  DateTime? date;
+@override  String place;
 
 /// Create a copy of PlanItem
 /// with the given fields replaced by the non-null parameter values.

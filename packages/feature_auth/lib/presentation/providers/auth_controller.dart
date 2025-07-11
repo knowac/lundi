@@ -8,9 +8,7 @@ part 'auth_controller.g.dart';
 @riverpod
 class AuthController extends _$AuthController {
   @override
-  AuthState build() {
-    return const AuthState();
-  }
+  AuthState build() => const AuthState();
 
   Future<void> signIn(String email, String password) async {
     state = state.copyWith(isLoading: true, error: null);
@@ -47,7 +45,7 @@ class AuthController extends _$AuthController {
     try {
       await ref.read(authProvider.notifier).signOut();
       state = state.copyWith(isAuthenticated: false, isLoading: false);
-    } catch (e) {
+    } on Exception {
       state = state.copyWith(
         isLoading: false,
         error: 'An error occurred during sign out',

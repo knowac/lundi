@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Poi {
 
- double get latitude; set latitude(double value); double get longitude; set longitude(double value); String get id; set id(String value);
+@HiveField(0) String get id;@HiveField(1) double get longitude;@HiveField(2) double get latitude;
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PoiCopyWith<Poi> get copyWith => _$PoiCopyWithImpl<Poi>(this as Poi, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.id, id) || other.id == id));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.latitude, latitude) || other.latitude == latitude));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,latitude,longitude,id);
+int get hashCode => Object.hash(runtimeType,id,longitude,latitude);
 
 @override
 String toString() {
-  return 'Poi(latitude: $latitude, longitude: $longitude, id: $id)';
+  return 'Poi(id: $id, longitude: $longitude, latitude: $latitude)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PoiCopyWith<$Res>  {
   factory $PoiCopyWith(Poi value, $Res Function(Poi) _then) = _$PoiCopyWithImpl;
 @useResult
 $Res call({
- String id, double longitude, double latitude
+@HiveField(0) String id,@HiveField(1) double longitude,@HiveField(2) double latitude
 });
 
 
@@ -63,10 +63,10 @@ class _$PoiCopyWithImpl<$Res>
 /// Create a copy of Poi
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? longitude = null,Object? latitude = null,}) {
-  return _then(Poi(
-null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
-as double,null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,longitude: null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double,latitude: null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -88,10 +88,11 @@ extension PoiPatterns on Poi {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Poi value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _:
+case _Poi() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -109,10 +110,11 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Poi value)  $default,){
 final _that = this;
 switch (_that) {
-case _:
+case _Poi():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -129,10 +131,11 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Poi value)?  $default,){
 final _that = this;
 switch (_that) {
-case _:
+case _Poi() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -149,9 +152,10 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@HiveField(0)  String id, @HiveField(1)  double longitude, @HiveField(2)  double latitude)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _:
+case _Poi() when $default != null:
+return $default(_that.id,_that.longitude,_that.latitude);case _:
   return orElse();
 
 }
@@ -169,9 +173,10 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@HiveField(0)  String id, @HiveField(1)  double longitude, @HiveField(2)  double latitude)  $default,) {final _that = this;
 switch (_that) {
-case _:
+case _Poi():
+return $default(_that.id,_that.longitude,_that.latitude);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -188,13 +193,84 @@ case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@HiveField(0)  String id, @HiveField(1)  double longitude, @HiveField(2)  double latitude)?  $default,) {final _that = this;
 switch (_that) {
-case _:
+case _Poi() when $default != null:
+return $default(_that.id,_that.longitude,_that.latitude);case _:
   return null;
 
 }
 }
+
+}
+
+/// @nodoc
+
+@HiveType(typeId: 0)
+class _Poi extends Poi {
+   _Poi({@HiveField(0) required this.id, @HiveField(1) required this.longitude, @HiveField(2) required this.latitude}): super._();
+  
+
+@override@HiveField(0) final  String id;
+@override@HiveField(1) final  double longitude;
+@override@HiveField(2) final  double latitude;
+
+/// Create a copy of Poi
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PoiCopyWith<_Poi> get copyWith => __$PoiCopyWithImpl<_Poi>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Poi&&(identical(other.id, id) || other.id == id)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.latitude, latitude) || other.latitude == latitude));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,longitude,latitude);
+
+@override
+String toString() {
+  return 'Poi(id: $id, longitude: $longitude, latitude: $latitude)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PoiCopyWith<$Res> implements $PoiCopyWith<$Res> {
+  factory _$PoiCopyWith(_Poi value, $Res Function(_Poi) _then) = __$PoiCopyWithImpl;
+@override @useResult
+$Res call({
+@HiveField(0) String id,@HiveField(1) double longitude,@HiveField(2) double latitude
+});
+
+
+
+
+}
+/// @nodoc
+class __$PoiCopyWithImpl<$Res>
+    implements _$PoiCopyWith<$Res> {
+  __$PoiCopyWithImpl(this._self, this._then);
+
+  final _Poi _self;
+  final $Res Function(_Poi) _then;
+
+/// Create a copy of Poi
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? longitude = null,Object? latitude = null,}) {
+  return _then(_Poi(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,longitude: null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
+as double,latitude: null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
 
 }
 

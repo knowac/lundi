@@ -6,9 +6,11 @@ part of 'plan_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$planHash() => r'7ead224e2ad6e4ce7e34b1d3c2ab486018058e60';
+String _$planHash() => r'aa1418f9e7a74766ca695fcbd3993d4cc0b56ad7';
 
-/// See also [Plan].
+/// Plan provider
+///
+/// Copied from [Plan].
 @ProviderFor(Plan)
 final planProvider =
     AutoDisposeAsyncNotifierProvider<Plan, List<PlanItem>>.internal(

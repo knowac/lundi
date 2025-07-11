@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import 'package:shared/config/route_names.dart';
 import 'package:shared/generated/l10n.dart';
 
 class MainScaffold extends ConsumerStatefulWidget {
-  const MainScaffold({super.key, required this.child});
+  const MainScaffold({required this.child, super.key});
 
   final Widget child;
 
@@ -17,7 +19,7 @@ class MainScaffold extends ConsumerStatefulWidget {
 }
 
 class _MainScaffoldState extends ConsumerState<MainScaffold> {
-  int _currentIndex = 0;
+  var _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
         Theme.of(context).colorScheme.primary,
         Theme.of(context).colorScheme.tertiary,
       ],
-      stops: [0, 100],
+      stops: const [0, 100],
     );
     final gradientDecoration = BoxDecoration(gradient: gradient);
 
@@ -64,7 +66,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(56),
+        preferredSize: const Size.fromHeight(56),
         child: AppBar(
           titleSpacing: 0,
           backgroundColor: Colors.transparent,
@@ -74,9 +76,8 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).colorScheme.shadow.withAlpha(128),
-                  spreadRadius: 0,
                   blurRadius: 5,
-                  offset: Offset(0, 4),
+                  offset: const Offset(0, 4),
                 ),
               ],
               borderRadius: SmoothBorderRadius(
@@ -86,12 +87,11 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
             ),
           ),
           title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 8),
                 child: Hero(
-                  tag: "logo",
+                  tag: 'logo',
                   child: Image.asset(
                     'packages/shared/lib/images/lundi_logo.png',
                   ),
@@ -109,21 +109,20 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
         ),
       ),
       body: widget.child,
-      floatingActionButton: Container(
+      floatingActionButton: DecoratedBox(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
             color: Theme.of(context).colorScheme.surface,
-            width: 1,
           ),
         ),
         child: FloatingActionButton(
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           backgroundColor: Theme.of(context).colorScheme.primary,
           elevation: 5,
           child: floatingIcon,
           onPressed: () {
-            GoRouter.of(context).pushNamed(RouteNames.assist);
+            unawaited(GoRouter.of(context).pushNamed(RouteNames.assist));
           },
         ),
       ),
@@ -131,7 +130,7 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         shadow: Shadow(
           color: Theme.of(context).colorScheme.shadow.withAlpha(128),
-          offset: Offset(0, -4),
+          offset: const Offset(0, -4),
           blurRadius: 5,
         ),
         height: 80,
@@ -144,21 +143,18 @@ class _MainScaffoldState extends ConsumerState<MainScaffold> {
         leftCornerRadius: 32,
         rightCornerRadius: 32,
         itemCount: 4,
-        tabBuilder: (index, isActive) {
-          return iconData[index];
-        },
+        tabBuilder: (index, isActive) => iconData[index],
         activeIndex: _currentIndex,
         onTap: (index) {
           switch (index) {
             case 0:
-              GoRouter.of(context).pushNamed(RouteNames.home);
+              unawaited(GoRouter.of(context).pushNamed(RouteNames.home));
             case 1:
-              GoRouter.of(context).pushNamed(RouteNames.plan);
+              unawaited(GoRouter.of(context).pushNamed(RouteNames.plan));
             case 2:
-              GoRouter.of(context).pushNamed(RouteNames.edit);
+              unawaited(GoRouter.of(context).pushNamed(RouteNames.edit));
             case 3:
-              GoRouter.of(context).pushNamed(RouteNames.settings);
-              break;
+              unawaited(GoRouter.of(context).pushNamed(RouteNames.settings));
           }
           setState(() {
             _currentIndex = index;
