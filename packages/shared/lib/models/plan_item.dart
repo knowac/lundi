@@ -5,7 +5,7 @@ part 'plan_item.g.dart';
 
 @unfreezed
 abstract class PlanItem with _$PlanItem {
-  const factory PlanItem({
+  factory PlanItem({
     required DateTime? date,
     required String place,
   }) = _PlanItem;

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:feature_edit/presentation/providers/region_map_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
@@ -8,10 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared/config/route_names.dart';
 import 'package:shared/generated/l10n.dart';
+import 'package:shared/interfaces/feature_show_map/widgets/show_map.dart';
 import 'package:shared/models/plan_item.dart';
 import 'package:shared/providers/plan_provider.dart';
 
+/// EditScreen class
 class EditScreen extends ConsumerStatefulWidget {
+  /// EditScreen constructor
   const EditScreen({super.key});
 
   @override
@@ -55,6 +57,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
     final height = MediaQuery.of(context).size.height;
     final colorScheme = Theme.of(context).colorScheme;
 
+    final regionMap = ref.read(getRegionMapProvider);
     return Stack(
       children: [
         Positioned(
@@ -65,7 +68,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
           child: Container(
             height: double.infinity,
             color: colorScheme.secondaryContainer,
-            child: ref.read(regionMapProvider),
+            child: regionMap(),
           ),
         ),
         SlidingBox(

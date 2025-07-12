@@ -9,6 +9,7 @@ targets:
       riverpod_generator:
         generate_for:
           include:
+            - lib/interfaces/**/{**/*,*}.dart
             - lib/presentation/providers/*.dart
             - lib/data/repositories/*.dart
             - lib/domain/models/*.dart

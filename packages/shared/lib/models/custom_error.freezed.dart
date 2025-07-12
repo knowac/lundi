@@ -208,7 +208,7 @@ return $default(_that.code,_that.message,_that.plugin);case _:
 
 
 class _CustomError extends CustomError {
-  const _CustomError({this.code = '', this.message = '', this.plugin = ''}): super._();
+   _CustomError({this.code = '', this.message = '', this.plugin = ''}): super._();
   
 
 @override@JsonKey() final  String code;

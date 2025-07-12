@@ -8,7 +8,7 @@ part 'custom_error.freezed.dart';
 @freezed
 abstract class CustomError extends Error with _$CustomError {
   /// CustomError constructor
-  const factory CustomError({
+  factory CustomError({
     @Default('') String code,
     @Default('') String message,
     @Default('') String plugin,

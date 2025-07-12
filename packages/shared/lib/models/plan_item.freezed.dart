@@ -203,7 +203,7 @@ return $default(_that.date,_that.place);case _:
 @JsonSerializable()
 
 class _PlanItem implements PlanItem {
-  const _PlanItem({required this.date, required this.place});
+   _PlanItem({required this.date, required this.place});
   factory _PlanItem.fromJson(Map<String, dynamic> json) => _$PlanItemFromJson(json);
 
 @override  DateTime? date;

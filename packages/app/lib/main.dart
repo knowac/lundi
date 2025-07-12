@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:app/di/service_locator.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/providers/router_provider.dart';
+import 'package:feature_show_map/presentation/di/shared_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final binding = WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
   // Preload all assets to prevent flash when they are loaded.
   binding
     ..deferFirstFrame()
@@ -34,7 +33,14 @@ void main() async {
       binding.allowFirstFrame();
     });
 
-  runApp(const ProviderScope(child: Lundi()));
+  runApp(
+    ProviderScope(
+      overrides: [
+        showRegionMapProviderOverride,
+      ],
+      child: const Lundi(),
+    ),
+  );
 }
 
 Future<void> _precacheAssets(ImageProvider provider) {
