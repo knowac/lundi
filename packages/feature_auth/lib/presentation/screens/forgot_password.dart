@@ -21,7 +21,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
   final _scrollController = ScrollController();
   final _emailController = TextEditingController();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
-  bool _emailSent = false;
+  var _emailSent = false;
 
   @override
   void dispose() {

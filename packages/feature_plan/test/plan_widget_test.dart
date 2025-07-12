@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Plan widget renders', (WidgetTester tester) async {
+  testWidgets('Plan widget renders', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(body: Text('Plan')), // PlanWidget()

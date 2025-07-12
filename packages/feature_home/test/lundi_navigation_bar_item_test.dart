@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('LundiNavigationBarItem renders', (WidgetTester tester) async {
+  testWidgets('LundiNavigationBarItem renders', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

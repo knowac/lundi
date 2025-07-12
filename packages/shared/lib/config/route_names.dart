@@ -1,11 +1,11 @@
 class RouteNames {
-  static const String home = 'home';
-  static const String plan = 'plan';
-  static const String assist = 'assist';
-  static const String edit = 'edit';
-  static const String settings = 'settings';
-  static const String settingsSignUp = 'settingsSignUp';
-  static const String settingsSignIn = 'settingsSignIn';
-  static const String settingsSignOut = 'settingsSignOut';
-  static const String settingsForgotPassword = 'settingsForgotPassword';
+  static const home = 'home';
+  static const plan = 'plan';
+  static const assist = 'assist';
+  static const edit = 'edit';
+  static const settings = 'settings';
+  static const settingsSignUp = 'settingsSignUp';
+  static const settingsSignIn = 'settingsSignIn';
+  static const settingsSignOut = 'settingsSignOut';
+  static const settingsForgotPassword = 'settingsForgotPassword';
 }
