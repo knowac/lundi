@@ -1,8 +1,0 @@
-linter:
-  rules:
-    avoid_print: false
-    avoid_relative_lib_imports: true
-    require_trailing_commas: true
-
-formatter:
-  trailing_commas: preserve

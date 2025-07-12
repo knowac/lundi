@@ -23,8 +23,8 @@ dependencies:
     path: ../feature_home
   feature_plan:
     path: ../feature_plan
-  feature_show_map:
-    path: ../feature_show_map
+  feature_map:
+    path: ../feature_map
   figma_squircle: ^0.6.3
   firebase_auth: ^5.6.1
   firebase_core: ^3.15.0

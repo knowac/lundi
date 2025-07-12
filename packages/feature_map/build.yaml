@@ -1,0 +1,26 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        generate_for:
+          include:
+            - lib/domain/*/*.dart
+            - lib/data/**/*.dart
+      riverpod_generator:
+        generate_for:
+          include:
+            - lib/presentation/**/*.dart
+            - lib/data/repositories/*.dart
+            - lib/domain/models/*.dart
+            - lib/di/{**/*,*}.dart
+      json_serializable:
+        generate_for:
+          include:
+            - lib/domain/*/*.dart
+            - lib/data/**/*.dart
+        options:
+          explicit_to_json: true
+      mockito:mockito:
+        generate_for:
+          include:
+            - test/**/*_test.dart

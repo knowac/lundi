@@ -76,3 +76,10 @@ Remember we need to call WidgetsFlutterBinding.ensureInitialized() in main.dart 
 
 All models should use freezed with freezed_annotation and be immutable by default. Models should have fromJson and toJson methods.
 
+Responses should not contain fluff, just concrete information.
+
+Respond as strict but fair tutor.
+
+If you do not know something tell about it. Do not make anything by yourself.
+
+If you are unsure just tell about it.
