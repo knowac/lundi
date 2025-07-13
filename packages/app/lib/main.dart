@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/firebase_options.dart';
+import 'package:app/hive_initializer.dart';
 import 'package:app/providers/router_provider.dart';
 import 'package:feature_map/presentation/di/shared_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   final binding = WidgetsFlutterBinding.ensureInitialized();
+
+  await initializeHive();
+
   // Preload all assets to prevent flash when they are loaded.
   binding
     ..deferFirstFrame()

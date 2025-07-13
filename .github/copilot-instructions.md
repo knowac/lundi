@@ -33,9 +33,9 @@ For testing we are using mockito for mocking dependencies (not mocktail!), so wh
 For testing if needed always remember to create mock classes for the dependencies that are used in the package.
 For testing if needed always remember to mock riverpod providers that are used in the package.
 
-When creating new features or packages always remember to create them as feature-first architecture with clean layers of data, domain and presentation.
+When creating new features or packages always remember to create them as clean feature-first architecture with layers of data, domain and presentation.
 
-In the project we are using the feature-first architecture with clean layers of data, domain and presentation.
+In the project we are using the clean feature-first architecture with layers of data, domain and presentation.
 
 Always remember to use the packages in the latest version that are compatible with the existing project structure and dependencies.
 

@@ -2,9 +2,11 @@ import 'package:feature_map/data/models/poi_model.dart';
 
 abstract class PoiRepositoryDataSource {
   Future<PoiModel> getPoi(String id);
-  Future addPoi({
+  Future<List<PoiModel>> getPois();
+  Future<void> addPoi({
     required double longitude,
     required double latitude,
+    required String name,
   });
-  Future deletePoi(String id);
+  Future<void> deletePoi(String id);
 }

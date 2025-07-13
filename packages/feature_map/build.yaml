@@ -24,3 +24,7 @@ targets:
         generate_for:
           include:
             - test/**/*_test.dart
+      hive_generator:
+        generate_for:
+          include:
+            - lib/data/*/{*,**/*}.dart

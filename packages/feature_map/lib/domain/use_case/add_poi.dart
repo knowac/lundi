@@ -7,10 +7,12 @@ class AddPoiUseCase {
   Future<void> call({
     required double longitude,
     required double latitude,
+    required String name,
   }) async {
     await _repository.addPoi(
       longitude: longitude,
       latitude: latitude,
+      name: name,
     );
   }
 }

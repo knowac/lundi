@@ -1,25 +1,31 @@
 import 'package:feature_map/data/data_sources/poi_repository_data_source.dart';
 import 'package:feature_map/data/models/poi_model.dart';
+import 'package:hive_ce/hive.dart';
 
 class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
+  PoiRepositoryDataSourceImpl(this._box);
+
+  final Box<PoiModel> _box;
+
   @override
-  Future addPoi({
+  Future<void> addPoi({
     required double longitude,
     required double latitude,
-  }) {
-    // TODO: implement addPoi
-    throw UnimplementedError();
+    required String name,
+  }) async {
+    final poi = PoiModel(
+      longitude: longitude,
+      latitude: latitude,
+      name: name,
+    );
+    await _box.add(poi);
   }
 
   @override
-  Future deletePoi(String id) {
-    // TODO: implement deletePoi
-    throw UnimplementedError();
+  Future<void> deletePoi(String id) async {
+    await _box.delete(id);
   }
 
   @override
-  Future<PoiModel> getPoi(String id) {
-    // TODO: implement getPoi
-    throw UnimplementedError();
-  }
+  Future<PoiModel> getPoi(String id) => Future.value(_box.get(id));
 }

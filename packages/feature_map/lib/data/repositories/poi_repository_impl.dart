@@ -11,11 +11,13 @@ class PoiRepositoryImpl implements PoiRepository {
   Future<void> addPoi({
     required double longitude,
     required double latitude,
+    required String name,
   }) async {
     try {
       await poiDataSource.addPoi(
         longitude: longitude,
         latitude: latitude,
+        name: name,
       );
     } catch (e) {
       rethrow;
@@ -35,6 +37,16 @@ class PoiRepositoryImpl implements PoiRepository {
   Future<Poi> getPoi(String id) async {
     try {
       final poi = await poiDataSource.getPoi(id);
+      return poi.toEntity();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Poi>> getPois() async {
+    try {
+      final poi = await poiDataSource.getPois();
       return poi.toEntity();
     } catch (e) {
       rethrow;

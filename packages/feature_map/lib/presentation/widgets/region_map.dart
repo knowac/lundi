@@ -51,6 +51,7 @@ class _RegionMapState extends ConsumerState<RegionMap> {
                     .call(
                       longitude: point.latitude,
                       latitude: point.longitude,
+                      name: 'dummyName', //TODOadd name
                     ),
               ),
               mapController: _mapController,
