@@ -28,4 +28,9 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
 
   @override
   Future<PoiModel> getPoi(String id) => Future.value(_box.get(id));
+
+  @override
+  Future<List<PoiModel>> getPois() {
+    throw UnimplementedError();
+  }
 }

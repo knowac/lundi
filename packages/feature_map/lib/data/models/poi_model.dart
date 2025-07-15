@@ -26,3 +26,7 @@ extension PoiModelX on PoiModel {
     name: name,
   );
 }
+
+extension PoiListModelX on List<PoiModel> {
+  List<Poi> toEntity() => map((el) => el.toEntity()).toList();
+}
