@@ -8,17 +8,18 @@ class PoiRepositoryImpl implements PoiRepository {
   final PoiRepositoryDataSource poiDataSource;
 
   @override
-  Future<void> addPoi({
+  Future<Poi> addPoi({
     required double longitude,
     required double latitude,
     required String name,
   }) async {
     try {
-      await poiDataSource.addPoi(
+      final poi = await poiDataSource.addPoi(
         longitude: longitude,
         latitude: latitude,
         name: name,
       );
+      return poi.toEntity();
     } catch (e) {
       rethrow;
     }

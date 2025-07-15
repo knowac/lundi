@@ -8,7 +8,7 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   final Box<PoiModel> _box;
 
   @override
-  Future<void> addPoi({
+  Future<PoiModel> addPoi({
     required double longitude,
     required double latitude,
     required String name,
@@ -19,6 +19,7 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
       name: name,
     );
     await _box.add(poi);
+    return poi;
   }
 
   @override
@@ -30,7 +31,5 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   Future<PoiModel> getPoi(String id) => Future.value(_box.get(id));
 
   @override
-  Future<List<PoiModel>> getPois() {
-    throw UnimplementedError();
-  }
+  Future<List<PoiModel>> getPois() => Future.value(_box.values.toList());
 }

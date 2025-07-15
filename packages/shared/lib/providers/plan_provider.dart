@@ -29,7 +29,7 @@ class Plan extends _$Plan {
     var updatedIndex = newIndex;
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      // TODOCalculate routes for all points and update times
+      // TODO(kano): Calculate routes for all points and update times
       if (oldIndex < updatedIndex) {
         updatedIndex -= 1;
       }

@@ -21,10 +21,10 @@ dependencies:
     path: ../feature_edit
   feature_home:
     path: ../feature_home
-  feature_plan:
-    path: ../feature_plan
   feature_map:
     path: ../feature_map
+  feature_plan:
+    path: ../feature_plan
   figma_squircle: ^0.6.3
   firebase_auth: ^5.6.1
   firebase_core: ^3.15.0

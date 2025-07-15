@@ -35,7 +35,7 @@ class MockPlan2 extends AutoDisposeAsyncNotifier<List<PlanItem>>
   Future<void> reorder(int oldIndex, int newIndex) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      // TODOCalculate routes for all points and update times
+      // TODO(kano): Calculate routes for all points and update times
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }

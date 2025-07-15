@@ -102,7 +102,7 @@ GoRouter route(Ref ref) {
         case AsyncLoading():
           return '/home';
         case AsyncError(error: _):
-          return '/home'; // TODOAdd error page
+          return '/home'; // TODO(kano): Add error page
         case AsyncData(value: var _):
           final authenticated = authState.valueOrNull != null;
           final isAuthenticating =
@@ -119,7 +119,7 @@ GoRouter route(Ref ref) {
             return '/home';
           }
 
-          // TODOAdd email verification
+          // TODO(kano): Add email verification
           // if (kFbAuth.currentUser!.emailVerified) {
           //   return '/verifyEmail';
           // }
