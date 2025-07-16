@@ -5,6 +5,7 @@ part 'poi.freezed.dart';
 @freezed
 abstract class Poi with _$Poi {
   factory Poi({
+    required String id,
     required double longitude,
     required double latitude,
     required String name,

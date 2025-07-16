@@ -9,3 +9,8 @@
 // TODO 9. Dodać model dla danych formularza
 // TODO 10. Dodać algorytm liczenia trasy (jeśli kiedykolwiek go wymyślę)
 // Kolejność wykonywania nie ma większego znaczenia
+
+// TODO: Dodać id do POI
+// TODO: Dodać API do reverse routingu
+// TODO: Dodać poprawną nazwę punktu do POI
+// TODO: Dodać API do routingu

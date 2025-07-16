@@ -37,4 +37,25 @@ class Pois extends _$Pois {
       loading: AsyncValue.loading,
     );
   }
+
+  Future<void> deletePoi({
+    required String id,
+  }) async {
+    state = const AsyncValue.loading();
+
+    final removePoiUseCase = ref.read(removePoiUseCaseProvider);
+
+    final result = await AsyncValue.guard(
+      () => removePoiUseCase.call(id),
+    );
+    result.when(
+      data: (addedPoiFromUseCase) {
+        final currentList = state.valueOrNull ?? []
+          ..removeWhere((poi) => poi.id == id);
+        state = AsyncValue.data(currentList);
+      },
+      error: AsyncValue.error,
+      loading: AsyncValue.loading,
+    );
+  }
 }

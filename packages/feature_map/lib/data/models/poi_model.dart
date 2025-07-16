@@ -9,9 +9,10 @@ part 'poi_model.g.dart';
 abstract class PoiModel extends HiveObject with _$PoiModel {
   @HiveType(typeId: 0)
   factory PoiModel({
-    @HiveField(0) required double longitude,
-    @HiveField(1) required double latitude,
-    @HiveField(2) required String name,
+    @HiveField(0) required String id,
+    @HiveField(1) required double longitude,
+    @HiveField(2) required double latitude,
+    @HiveField(3) required String name,
   }) = _PoiModel;
 
   PoiModel._();
@@ -21,6 +22,7 @@ abstract class PoiModel extends HiveObject with _$PoiModel {
 
 extension PoiModelX on PoiModel {
   Poi toEntity() => Poi(
+    id: id,
     longitude: longitude,
     latitude: latitude,
     name: name,

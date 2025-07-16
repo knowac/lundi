@@ -47,8 +47,8 @@ class PoiRepositoryImpl implements PoiRepository {
   @override
   Future<List<Poi>> getPois() async {
     try {
-      final poi = await poiDataSource.getPois();
-      return poi.toEntity();
+      final pois = await poiDataSource.getPois();
+      return pois.toEntity();
     } catch (e) {
       rethrow;
     }

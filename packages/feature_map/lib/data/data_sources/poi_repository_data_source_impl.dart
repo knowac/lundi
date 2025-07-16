@@ -1,6 +1,7 @@
 import 'package:feature_map/data/data_sources/poi_repository_data_source.dart';
 import 'package:feature_map/data/models/poi_model.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:uuid/uuid.dart';
 
 class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   PoiRepositoryDataSourceImpl(this._box);
@@ -14,11 +15,12 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
     required String name,
   }) async {
     final poi = PoiModel(
+      id: const Uuid().v4(),
       longitude: longitude,
       latitude: latitude,
       name: name,
     );
-    await _box.add(poi);
+    await _box.put(poi.id, poi);
     return poi;
   }
 

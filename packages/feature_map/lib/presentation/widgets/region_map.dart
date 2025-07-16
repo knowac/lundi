@@ -64,15 +64,25 @@ class _RegionMapState extends ConsumerState<RegionMap> {
                   data: (pois) => pois
                       .map(
                         (poi) => Marker(
-                          width: 80,
-                          height: 80,
+                          width: 40,
+                          height: 40,
                           point: LatLng(
                             poi.latitude,
                             poi.longitude,
                           ),
-                          child: Icon(
-                            Icons.location_on,
-                            color: Theme.of(context).colorScheme.primary,
+                          child: GestureDetector(
+                            onTap: () async {
+                              await ref
+                                  .read(poisProvider.notifier)
+                                  .deletePoi(
+                                    id: poi.id,
+                                  );
+                            },
+                            child: Icon(
+                              size: 40,
+                              Icons.location_on,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                       )
