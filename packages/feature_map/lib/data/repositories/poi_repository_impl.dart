@@ -12,12 +12,14 @@ class PoiRepositoryImpl implements PoiRepository {
     required double longitude,
     required double latitude,
     required String name,
+    required int ordinal,
   }) async {
     try {
       final poi = await poiDataSource.addPoi(
         longitude: longitude,
         latitude: latitude,
         name: name,
+        ordinal: ordinal,
       );
       return poi.toEntity();
     } catch (e) {
@@ -26,9 +28,10 @@ class PoiRepositoryImpl implements PoiRepository {
   }
 
   @override
-  Future<void> deletePoi(String id) async {
+  Future<Poi?> deletePoi(String id) async {
     try {
-      await poiDataSource.deletePoi(id);
+      final poi = await poiDataSource.deletePoi(id);
+      return poi?.toEntity();
     } catch (e) {
       rethrow;
     }
@@ -49,6 +52,16 @@ class PoiRepositoryImpl implements PoiRepository {
     try {
       final pois = await poiDataSource.getPois();
       return pois.toEntity();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Poi?> updatePoi(Poi poi) async {
+    try {
+      final poiModel = await poiDataSource.updatePoi(poi.fromEntity());
+      return poiModel?.toEntity();
     } catch (e) {
       rethrow;
     }

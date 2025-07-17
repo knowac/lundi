@@ -9,11 +9,11 @@ class AddPoiUseCase {
     required double longitude,
     required double latitude,
     required String name,
-  }) async {
-    return await _repository.addPoi(
-      longitude: longitude,
-      latitude: latitude,
-      name: name,
-    );
-  }
+    required int ordinal,
+  }) => _repository.addPoi(
+    longitude: longitude,
+    latitude: latitude,
+    name: name,
+    ordinal: ordinal,
+  );
 }

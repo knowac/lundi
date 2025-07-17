@@ -1,8 +1,9 @@
 import 'package:feature_map/domain/entities/poi.dart';
 import 'package:feature_map/domain/repositories/poi_repository.dart';
 
-class DeletePoiUseCase {
-  DeletePoiUseCase(this._repository);
+class UpdatePoiUseCase {
+  UpdatePoiUseCase(this._repository);
   final PoiRepository _repository;
-  Future<Poi?> call(String id) => _repository.deletePoi(id);
+
+  Future<Poi?> call(Poi poi) => _repository.updatePoi(poi);
 }

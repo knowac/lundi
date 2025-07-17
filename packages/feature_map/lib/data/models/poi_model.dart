@@ -7,6 +7,17 @@ extension PoiModelX on PoiModel {
     longitude: longitude,
     latitude: latitude,
     name: name,
+    ordinal: ordinal,
+  );
+}
+
+extension PoiX on Poi {
+  PoiModel fromEntity() => PoiModel(
+    id: id,
+    longitude: longitude,
+    latitude: latitude,
+    name: name,
+    ordinal: ordinal,
   );
 }
 

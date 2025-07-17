@@ -12,6 +12,7 @@ abstract class PoiModel extends HiveObject with _$PoiModel {
     @HiveField(1) required double longitude,
     @HiveField(2) required double latitude,
     @HiveField(3) required String name,
+    @HiveField(4) required int ordinal,
   }) = _PoiModel;
 
   PoiModel._();

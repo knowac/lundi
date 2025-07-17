@@ -19,6 +19,9 @@ class Pois extends _$Pois {
   }) async {
     state = const AsyncValue.loading();
 
+    final previousStateValue = state.valueOrNull ?? [];
+    final newOrdinal = previousStateValue.length;
+
     final addPoiUseCase = ref.read(addPoiUseCaseProvider);
 
     final result = await AsyncValue.guard(
@@ -26,6 +29,7 @@ class Pois extends _$Pois {
         longitude: longitude,
         latitude: latitude,
         name: name,
+        ordinal: newOrdinal,
       ),
     );
     result.when(
@@ -42,16 +46,43 @@ class Pois extends _$Pois {
     required String id,
   }) async {
     state = const AsyncValue.loading();
+    final previousList = state.valueOrNull ?? [];
 
     final removePoiUseCase = ref.read(removePoiUseCaseProvider);
+    final updatePoiUseCase = ref.read(updatePoiUseCaseProvider);
 
     final result = await AsyncValue.guard(
-      () => removePoiUseCase.call(id),
+      () async {
+        final removedPoi = await removePoiUseCase.call(id);
+        if (removedPoi != null) {
+          final larger = previousList.where(
+            (poi) => poi.ordinal > removedPoi.ordinal,
+          );
+          await Future.forEach(larger, (poi) async {
+            poi = poi.copyWith(ordinal: poi.ordinal - 1);
+            await updatePoiUseCase.call(poi);
+          });
+          return removedPoi;
+        }
+        return null;
+      },
     );
     result.when(
-      data: (addedPoiFromUseCase) {
+      data: (removedPoiFromUseCase) {
         final currentList = state.valueOrNull ?? []
           ..removeWhere((poi) => poi.id == id);
+        if (removedPoiFromUseCase != null) {
+          final modifiedCurrentList = currentList.map(
+            (poi) {
+              if (poi.ordinal > removedPoiFromUseCase.ordinal) {
+                return poi.copyWith(ordinal: poi.ordinal - 1);
+              }
+              return poi;
+            },
+          ).toList();
+          state = AsyncValue.data(modifiedCurrentList);
+          return;
+        }
         state = AsyncValue.data(currentList);
       },
       error: AsyncValue.error,

@@ -13,20 +13,27 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
     required double longitude,
     required double latitude,
     required String name,
+    required int ordinal,
   }) async {
     final poi = PoiModel(
       id: const Uuid().v4(),
       longitude: longitude,
       latitude: latitude,
       name: name,
+      ordinal: ordinal,
     );
     await _box.put(poi.id, poi);
     return poi;
   }
 
   @override
-  Future<void> deletePoi(String id) async {
+  Future<PoiModel?> deletePoi(String id) async {
+    if (!_box.containsKey(id)) {
+      return null;
+    }
+    final poi = _box.get(id);
     await _box.delete(id);
+    return poi;
   }
 
   @override
@@ -34,4 +41,13 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
 
   @override
   Future<List<PoiModel>> getPois() => Future.value(_box.values.toList());
+
+  @override
+  Future<PoiModel?> updatePoi(PoiModel poi) async {
+    if (_box.containsKey(poi.id)) {
+      await _box.put(poi.id, poi);
+      return poi;
+    }
+    return null;
+  }
 }

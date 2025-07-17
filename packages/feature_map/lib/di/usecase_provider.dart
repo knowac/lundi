@@ -4,6 +4,7 @@ import 'package:feature_map/domain/use_case/add_poi.dart';
 import 'package:feature_map/domain/use_case/get_poi.dart';
 import 'package:feature_map/domain/use_case/get_pois.dart';
 import 'package:feature_map/domain/use_case/remove_poi.dart';
+import 'package:feature_map/domain/use_case/update_poi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,3 +24,7 @@ GetPoisUseCase getPoisUseCase(Ref ref) =>
 @riverpod
 DeletePoiUseCase removePoiUseCase(Ref ref) =>
     DeletePoiUseCase(ref.watch(poiRepositoryProvider));
+
+@riverpod
+UpdatePoiUseCase updatePoiUseCase(Ref ref) =>
+    UpdatePoiUseCase(ref.watch(poiRepositoryProvider));

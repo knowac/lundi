@@ -7,6 +7,8 @@ abstract class PoiRepository {
     required double longitude,
     required double latitude,
     required String name,
+    required int ordinal,
   });
-  Future<void> deletePoi(String id);
+  Future<Poi?> deletePoi(String id);
+  Future<Poi?> updatePoi(Poi poi);
 }

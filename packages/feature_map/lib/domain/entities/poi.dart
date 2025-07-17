@@ -9,6 +9,7 @@ abstract class Poi with _$Poi {
     required double longitude,
     required double latitude,
     required String name,
+    required int ordinal,
   }) = _Poi;
   Poi._();
 }
