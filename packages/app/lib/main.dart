@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app/firebase_options.dart';
 import 'package:app/hive_initializer.dart';
 import 'package:app/providers/router_provider.dart';
+import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:feature_map/presentation/di/shared_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +42,7 @@ void main() async {
     ProviderScope(
       overrides: [
         showRegionMapProviderOverride,
+        authRepositoryProviderOverride,
       ],
       child: const Lundi(),
     ),

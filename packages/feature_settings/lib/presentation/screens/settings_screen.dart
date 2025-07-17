@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared/config/route_names.dart';
+import 'package:shared/di/feature_auth/auth_repository.dart';
 import 'package:shared/generated/l10n.dart';
+import 'package:shared/providers/auth_state.dart';
 
 /// Settings screen
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -55,12 +56,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             switch (index) {
               case 0:
                 if (isAuthenticated) {
-                  await ref.read(authRepositoryProvider).signout();
+                  await ref.read(sharedAuthRepositoryProvider).signout();
                   return;
                 }
                 unawaited(
                   GoRouter.of(context).pushNamed(RouteNames.settingsSignUp),
                 );
+                return;
+              case 4:
+                unawaited(
+                  GoRouter.of(context).pushNamed(RouteNames.settingsClearData),
+                );
+                return;
               default:
             }
           },

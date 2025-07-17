@@ -1,5 +1,5 @@
-import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared/di/feature_auth/auth_repository.dart';
 
 part 'forgot_password_provider.g.dart';
 
@@ -19,7 +19,9 @@ class ForgotPassword extends _$ForgotPassword {
     state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).sendPasswordResetEmail(email);
+      await ref
+          .read(sharedAuthRepositoryProvider)
+          .sendPasswordResetEmail(email);
     });
     if (key == _key) {
       state = newState;

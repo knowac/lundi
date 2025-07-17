@@ -48,5 +48,7 @@
   "settingsAuthForgotPasswordButton": "Send reset email",
   "settingsAuthForgotPasswordExplanation": "Check your email. You should receive the email with the link for password reset.",
   "settingsAuthForgotPasswordSendAgainLabel": "Not received email in few minutes? ",
-  "settingsAuthForgotPasswordSendAgainButton": "Send email again!"
+  "settingsAuthForgotPasswordSendAgainButton": "Send email again!",
+  "settingsClearDataExplanation": "By pressing 'Clear data' button i acknowledge all data related to the app stored on this device will be deleted.",
+  "settingsClearDataButton": "Clear data"
 }

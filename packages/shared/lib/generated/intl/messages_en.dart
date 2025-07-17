@@ -106,6 +106,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Already signed up? ",
     ),
     "settingsClearData": MessageLookupByLibrary.simpleMessage("Clear data"),
+    "settingsClearDataButton": MessageLookupByLibrary.simpleMessage(
+      "Clear data",
+    ),
+    "settingsClearDataExplanation": MessageLookupByLibrary.simpleMessage(
+      "By pressing \'Clear data\' button i acknowledge all data related to the app stored on this device will be deleted.",
+    ),
     "settingsExport": MessageLookupByLibrary.simpleMessage("Export trip"),
     "settingsLicense": MessageLookupByLibrary.simpleMessage("License"),
     "settingsPrivacyPolicy": MessageLookupByLibrary.simpleMessage(

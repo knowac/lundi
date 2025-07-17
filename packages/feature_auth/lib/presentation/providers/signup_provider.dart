@@ -1,5 +1,5 @@
-import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared/di/feature_auth/auth_repository.dart';
 
 part 'signup_provider.g.dart';
 
@@ -20,7 +20,7 @@ class Signup extends _$Signup {
     state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
-      final authRepository = ref.read(authRepositoryProvider);
+      final authRepository = ref.read(sharedAuthRepositoryProvider);
       await authRepository.signup(name: name, email: email, password: password);
     });
     if (key == _key) {

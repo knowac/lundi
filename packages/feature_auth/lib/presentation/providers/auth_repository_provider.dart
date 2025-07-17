@@ -1,13 +1,15 @@
 import 'package:feature_auth/data/repositories/auth_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared/constants/firebase_constants.dart';
+import 'package:shared/di/feature_auth/auth_repository.dart';
+import 'package:shared/di/interfaces/abstract_auth_repository.dart';
 
 part 'auth_repository_provider.g.dart';
 
 @riverpod
-AuthRepository authRepository(Ref ref) => AuthRepository();
+AbstractAuthRepository authRepository(Ref ref) => AuthRepository();
 
-@riverpod
-Stream<User?> authStateStream(Ref ref) => kFbAuth.authStateChanges();
+final authRepositoryProviderOverride = ProviderOverride(
+  origin: sharedAuthRepositoryProvider,
+  override: authRepositoryProvider,
+);

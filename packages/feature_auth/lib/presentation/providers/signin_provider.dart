@@ -1,5 +1,5 @@
-import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared/di/feature_auth/auth_repository.dart';
 
 part 'signin_provider.g.dart';
 
@@ -16,7 +16,7 @@ class Signin extends _$Signin {
     state = const AsyncLoading();
     final key = _key;
     final newState = await AsyncValue.guard(() async {
-      final authRepository = ref.read(authRepositoryProvider);
+      final authRepository = ref.read(sharedAuthRepositoryProvider);
       await authRepository.signin(email: email, password: password);
     });
     if (key == _key) {

@@ -518,6 +518,26 @@ class S {
       args: [],
     );
   }
+
+  /// `By pressing 'Clear data' button i acknowledge all data related to the app stored on this device will be deleted.`
+  String get settingsClearDataExplanation {
+    return Intl.message(
+      'By pressing \'Clear data\' button i acknowledge all data related to the app stored on this device will be deleted.',
+      name: 'settingsClearDataExplanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear data`
+  String get settingsClearDataButton {
+    return Intl.message(
+      'Clear data',
+      name: 'settingsClearDataButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,17 +1,18 @@
-import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
 import 'package:feature_auth/presentation/screens/forgot_password.dart';
-import 'package:feature_auth/presentation/screens/settings_screen.dart';
 import 'package:feature_auth/presentation/screens/sign_in.dart';
 import 'package:feature_auth/presentation/screens/sign_up.dart';
 import 'package:feature_edit/presentation/pages/edit_screen.dart';
 import 'package:feature_home/presentation/pages/home_screen.dart';
 import 'package:feature_home/presentation/pages/homepage.dart';
 import 'package:feature_plan/presentation/pages/plan_screen.dart';
+import 'package:feature_settings/presentation/screens/settings_clear_data.dart';
+import 'package:feature_settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/config/route_names.dart';
+import 'package:shared/providers/auth_state.dart';
 
 part 'router_provider.g.dart';
 
@@ -88,6 +89,14 @@ GoRouter route(Ref ref) {
             pageBuilder: (context, state) => buildFadeTransitionPage(
               state,
               child: const ForgotPassword(),
+            ),
+          ),
+          GoRoute(
+            path: '/settings/clear_data',
+            name: RouteNames.settingsClearData,
+            pageBuilder: (context, state) => buildFadeTransitionPage(
+              state,
+              child: const SettingsClearData(),
             ),
           ),
         ],

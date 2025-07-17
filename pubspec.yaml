@@ -58,6 +58,7 @@ workspace:
   - packages/feature_assistant
   - packages/feature_edit
   - packages/feature_map
+  - packages/feature_settings
   - packages/app
 flutter_intl:
   enabled: true

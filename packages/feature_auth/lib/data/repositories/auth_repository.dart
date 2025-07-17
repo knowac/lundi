@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared/constants/firebase_constants.dart';
+import 'package:shared/di/interfaces/abstract_auth_repository.dart';
 import 'package:shared/helpers/handle_exception.dart';
 
-class AuthRepository {
+class AuthRepository implements AbstractAuthRepository {
   User? get currentUser => kFbAuth.currentUser;
 
+  @override
   Future<void> signup({
     required String name,
     required String email,
@@ -25,6 +27,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> signin({required String email, required String password}) async {
     try {
       await kFbAuth.signInWithEmailAndPassword(
@@ -36,6 +39,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> signout() async {
     try {
       await kFbAuth.signOut();
@@ -44,6 +48,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> changePassword(String password) async {
     try {
       await currentUser!.updatePassword(password);
@@ -52,6 +57,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await kFbAuth.sendPasswordResetEmail(email: email);
@@ -60,6 +66,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> sendEmailVerification() async {
     try {
       await currentUser!.sendEmailVerification();
@@ -68,6 +75,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> reloadUser() async {
     try {
       await currentUser!.reload();
@@ -76,6 +84,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> reauthenticate(String email, String password) async {
     try {
       await currentUser!.reauthenticateWithCredential(

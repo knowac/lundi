@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:shared/providers/data_cleared_provider.dart';
 
 class RegionMap extends ConsumerStatefulWidget {
   const RegionMap({super.key});
@@ -33,6 +34,11 @@ class _RegionMapState extends ConsumerState<RegionMap> {
   Widget build(BuildContext context) {
     final pois = ref.watch(poisProvider);
     final tiles = ref.watch(tilesProvider);
+    ref.listen(dataClearedProvider, (prev, next) {
+      if (prev != next) {
+        ref.invalidate(poisProvider);
+      }
+    });
     return tiles.maybeWhen(
       orElse: () => const Placeholder(),
       error: (error, stackTrace) => Center(child: Text(error.toString())),

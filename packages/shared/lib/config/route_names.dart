@@ -8,4 +8,5 @@ class RouteNames {
   static const settingsSignIn = 'settingsSignIn';
   static const settingsSignOut = 'settingsSignOut';
   static const settingsForgotPassword = 'settingsForgotPassword';
+  static const settingsClearData = 'settingsClearData';
 }
