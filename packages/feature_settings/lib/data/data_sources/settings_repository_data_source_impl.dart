@@ -2,15 +2,14 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:feature_settings/data/data_sources/abstract_settings_repository_data_source.dart';
-import 'package:hive_ce/hive.dart';
-import 'package:shared/models/poi_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared/di/feature_map/show_map.dart';
 
 class SettingsRepositoryDataSourceImpl
     implements AbstractSettingsRepositoryDataSource {
-  SettingsRepositoryDataSourceImpl();
+  SettingsRepositoryDataSourceImpl(this.ref);
 
+  final Ref ref;
   @override
-  Future<void> clearData() async {
-    await Hive.box<PoiModel>('points_of_interest').clear();
-  }
+  Future<void> clearData() async => await ref.read(dummyClearPoiDataProvider);
 }

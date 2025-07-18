@@ -1,12 +1,20 @@
-library;
-
+import 'package:feature_map/di/repository_provider.dart';
 import 'package:feature_map/presentation/widgets/region_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared/di/feature_show_map/show_map.dart';
+import 'package:shared/di/feature_map/show_map.dart';
 
 part 'shared_providers.g.dart';
+
+@riverpod
+Future<void> clearPoiData(Ref ref) =>
+    ref.read(poiRepositoryProvider).clearData();
+
+final clearPoiDataProviderOverride = ProviderOverride(
+  origin: dummyClearPoiDataProvider,
+  override: clearPoiDataProvider,
+);
 
 /// Provider to show a region map.
 @riverpod

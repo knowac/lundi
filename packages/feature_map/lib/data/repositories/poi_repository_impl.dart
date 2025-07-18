@@ -3,7 +3,7 @@ import 'package:feature_map/data/models/poi_model.dart';
 import 'package:feature_map/domain/entities/poi.dart';
 import 'package:feature_map/domain/repositories/poi_repository.dart';
 
-class PoiRepositoryImpl implements PoiRepository {
+class PoiRepositoryImpl implements AbstractPoiRepository {
   PoiRepositoryImpl({required this.poiDataSource});
   final PoiRepositoryDataSource poiDataSource;
 
@@ -62,6 +62,15 @@ class PoiRepositoryImpl implements PoiRepository {
     try {
       final poiModel = await poiDataSource.updatePoi(poi.fromEntity());
       return poiModel?.toEntity();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> clearData() async {
+    try {
+      await poiDataSource.clearData();
     } catch (e) {
       rethrow;
     }

@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'repository_provider.g.dart';
 
 @riverpod
-PoiRepository poiRepository(Ref ref) {
+AbstractPoiRepository poiRepository(Ref ref) {
   final poiDataSource = ref.watch(poiRepositoryDataSourceProvider);
   return PoiRepositoryImpl(poiDataSource: poiDataSource);
 }

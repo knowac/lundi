@@ -1,4 +1,4 @@
-import 'package:shared/models/poi_model.dart';
+import 'package:feature_map/data/models/poi_model.dart';
 
 abstract class PoiRepositoryDataSource {
   Future<PoiModel> getPoi(String id);
@@ -11,4 +11,5 @@ abstract class PoiRepositoryDataSource {
   });
   Future<PoiModel?> deletePoi(String id);
   Future<PoiModel?> updatePoi(PoiModel poi);
+  Future<void> clearData();
 }

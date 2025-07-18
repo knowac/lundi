@@ -10,4 +10,4 @@ part 'data_source_provider.g.dart';
 
 @riverpod
 AbstractSettingsRepositoryDataSource settingsRepositoryDataSource(Ref ref) =>
-    SettingsRepositoryDataSourceImpl();
+    SettingsRepositoryDataSourceImpl(ref);

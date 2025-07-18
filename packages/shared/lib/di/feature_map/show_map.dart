@@ -6,3 +6,6 @@ part 'show_map.g.dart';
 
 @riverpod
 Widget getRegionMap(Ref ref) => throw UnimplementedError();
+
+@riverpod
+Future<void> dummyClearPoiData(Ref ref) => throw UnimplementedError();

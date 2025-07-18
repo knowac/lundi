@@ -4,7 +4,7 @@ import 'package:app/firebase_options.dart';
 import 'package:app/hive_initializer.dart';
 import 'package:app/providers/router_provider.dart';
 import 'package:feature_auth/presentation/providers/auth_repository_provider.dart';
-import 'package:feature_map/presentation/di/shared_providers.dart';
+import 'package:feature_map/di/shared_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +43,7 @@ void main() async {
       overrides: [
         showRegionMapProviderOverride,
         authRepositoryProviderOverride,
+        clearPoiDataProviderOverride,
       ],
       child: const Lundi(),
     ),

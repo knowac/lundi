@@ -6,7 +6,7 @@ import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared/config/route_names.dart';
-import 'package:shared/di/feature_show_map/show_map.dart';
+import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/generated/l10n.dart';
 import 'package:shared/models/plan_item.dart';
 import 'package:shared/providers/plan_provider.dart';
@@ -42,18 +42,21 @@ class _EditScreenState extends ConsumerState<EditScreen>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<List<PlanItem>>>(planProvider, (previous, next) {
-      next.whenOrNull(
-        error: (o, e) {
-          unawaited(GoRouter.of(context).pushNamed(RouteNames.home));
-        },
-        data: (plan) {
-          setState(() {
-            _plan = plan;
-          });
-        },
-      );
-    });
+    ref.listen<AsyncValue<List<PlanItem>>>(
+      planProvider,
+      (previous, next) {
+        next.whenOrNull(
+          error: (o, e) {
+            unawaited(GoRouter.of(context).pushNamed(RouteNames.home));
+          },
+          data: (plan) {
+            setState(() {
+              _plan = plan;
+            });
+          },
+        );
+      },
+    );
     final height = MediaQuery.of(context).size.height;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -76,14 +79,18 @@ class _EditScreenState extends ConsumerState<EditScreen>
           maxHeight: height * 0.75,
           color: colorScheme.surface,
           draggableIconBackColor: colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(32),
+          ),
           controller: _boxController,
           collapsed: true,
           animationCurve: Curves.easeInOut,
           bodyBuilder: (scrollController, boxPosition) => Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -108,13 +115,24 @@ class _EditScreenState extends ConsumerState<EditScreen>
               ),
               ReorderableListView.builder(
                 onReorder: (from, to) {
-                  unawaited(ref.read(planProvider.notifier).reorder(from, to));
+                  unawaited(
+                    ref
+                        .read(planProvider.notifier)
+                        .reorder(
+                          from,
+                          to,
+                        ),
+                  );
                 },
                 shrinkWrap: true,
                 primary: false,
                 itemBuilder: (context, index) => Container(
-                  key: Key(index.toString()),
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  key: Key(
+                    index.toString(),
+                  ),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
                   decoration: index == _plan.length
                       ? null
                       : BoxDecoration(
