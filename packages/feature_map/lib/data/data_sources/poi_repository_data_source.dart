@@ -1,4 +1,4 @@
-import 'package:feature_map/data/models/poi_model.dart';
+import 'package:shared/models/poi_model.dart';
 
 abstract class PoiRepositoryDataSource {
   Future<PoiModel> getPoi(String id);

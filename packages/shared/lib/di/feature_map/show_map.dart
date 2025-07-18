@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared/models/poi_model.dart';
 
-part 'show_map.g.dart';
-
-@riverpod
-Widget getRegionMap(Ref ref) => throw UnimplementedError();
-
-@riverpod
-Future<void> dummyClearPoiData(Ref ref) => throw UnimplementedError();
+abstract class AbstractSharedMap {
+  Widget getRegionMap();
+  Future<List<PoiModel>> getPois();
+  Future<void> clearPoiData();
+}

@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared/config/route_names.dart';
 import 'package:shared/di/feature_map/show_map.dart';
+import 'package:shared/di/service_locator.dart';
 import 'package:shared/generated/l10n.dart';
 import 'package:shared/models/plan_item.dart';
 import 'package:shared/providers/plan_provider.dart';
@@ -28,7 +27,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      ref.read(planProvider.notifier).fetch();
+      unawaited(ref.read(planProvider.notifier).fetch());
     });
   }
 
@@ -42,24 +41,15 @@ class _EditScreenState extends ConsumerState<EditScreen>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<List<PlanItem>>>(
-      planProvider,
-      (previous, next) {
-        next.whenOrNull(
-          error: (o, e) {
-            unawaited(GoRouter.of(context).pushNamed(RouteNames.home));
-          },
-          data: (plan) {
-            setState(() {
-              _plan = plan;
-            });
-          },
-        );
-      },
-    );
     final height = MediaQuery.of(context).size.height;
     final colorScheme = Theme.of(context).colorScheme;
 
+    final plan = ref.watch(planProvider);
+
+    _plan = plan.maybeWhen(
+      orElse: () => [],
+      data: (data) => data,
+    );
     return Stack(
       children: [
         Positioned(
@@ -70,7 +60,9 @@ class _EditScreenState extends ConsumerState<EditScreen>
           child: Container(
             height: double.infinity,
             color: colorScheme.secondaryContainer,
-            child: ref.read(getRegionMapProvider),
+            child: ref
+                .read(ServiceLocator.get<AbstractSharedMap>())
+                .getRegionMap(),
           ),
         ),
         SlidingBox(
@@ -171,7 +163,11 @@ class _EditScreenState extends ConsumerState<EditScreen>
                     ),
                   ),
                 ),
-                itemCount: _plan.length,
+                itemCount: plan.maybeWhen(
+                  orElse: () => 0,
+                  error: (e, st) => 0,
+                  data: (data) => data.length,
+                ),
               ),
             ],
           ),

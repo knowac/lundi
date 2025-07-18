@@ -38,16 +38,20 @@ void main() async {
       binding.allowFirstFrame();
     });
 
+  initSharedProviders();
+
   runApp(
     ProviderScope(
       overrides: [
-        showRegionMapProviderOverride,
         authRepositoryProviderOverride,
-        clearPoiDataProviderOverride,
       ],
       child: const Lundi(),
     ),
   );
+}
+
+void initSharedProviders() {
+  MapSharedProviders.init();
 }
 
 Future<void> _precacheAssets(ImageProvider provider) {

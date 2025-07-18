@@ -4,6 +4,7 @@
 import 'package:feature_settings/data/data_sources/abstract_settings_repository_data_source.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared/di/feature_map/show_map.dart';
+import 'package:shared/di/service_locator.dart';
 
 class SettingsRepositoryDataSourceImpl
     implements AbstractSettingsRepositoryDataSource {
@@ -11,5 +12,6 @@ class SettingsRepositoryDataSourceImpl
 
   final Ref ref;
   @override
-  Future<void> clearData() async => await ref.read(dummyClearPoiDataProvider);
+  Future<void> clearData() =>
+      ref.read(ServiceLocator.get<AbstractSharedMap>()).clearPoiData();
 }
