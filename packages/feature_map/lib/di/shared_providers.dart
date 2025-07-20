@@ -33,6 +33,14 @@ class SharedMap implements AbstractSharedMap {
   Future<List<Poi>> getPois() => ref.read(getPoisProvider.notifier).fetch();
   @override
   Future<void> clearPoiData() => ref.read(poiRepositoryProvider).clearData();
+
+  @override
+  Future<void> updatePoi(Poi poi) =>
+      ref.read(poiRepositoryProvider).updatePoi(poi);
+
+  @override
+  Future<List<String>> updatePois(List<Poi> pois) =>
+      ref.read(poiRepositoryProvider).updatePois(pois);
 }
 
 @riverpod

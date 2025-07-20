@@ -14,6 +14,8 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
     required double latitude,
     required String name,
     required int ordinal,
+    required DateTime? date,
+    required String? customName,
   }) async {
     final poi = PoiModel(
       id: const Uuid().v4(),
@@ -21,8 +23,8 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
       latitude: latitude,
       name: name,
       ordinal: ordinal,
-      date: null,
-      customName: null,
+      date: date,
+      customName: customName,
     );
     await _box.put(poi.id, poi);
     return poi;
@@ -56,5 +58,17 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   @override
   Future<void> clearData() async {
     await _box.clear();
+  }
+
+  @override
+  Future<List<String>> updatePois(List<PoiModel> pois) async {
+    final ids = <String>[];
+    await Future.forEach(pois, (poi) async {
+      if (_box.containsKey(poi.id)) {
+        await _box.put(poi.id, poi);
+        ids.add(poi.id);
+      }
+    });
+    return ids;
   }
 }

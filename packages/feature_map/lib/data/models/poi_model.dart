@@ -30,8 +30,8 @@ extension PoiModelX on PoiModel {
     latitude: latitude,
     name: name,
     ordinal: ordinal,
-    date: null,
-    customName: null,
+    date: date,
+    customName: customName,
   );
 }
 
@@ -42,8 +42,8 @@ extension PoiX on Poi {
     latitude: latitude,
     name: name,
     ordinal: ordinal,
-    date: null,
-    customName: '',
+    date: date,
+    customName: customName,
   );
 }
 

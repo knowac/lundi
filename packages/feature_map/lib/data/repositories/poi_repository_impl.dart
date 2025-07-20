@@ -13,6 +13,8 @@ class PoiRepositoryImpl implements AbstractPoiRepository {
     required double latitude,
     required String name,
     required int ordinal,
+    required DateTime? date,
+    required String? customName,
   }) async {
     try {
       final poi = await poiDataSource.addPoi(
@@ -20,6 +22,8 @@ class PoiRepositoryImpl implements AbstractPoiRepository {
         latitude: latitude,
         name: name,
         ordinal: ordinal,
+        date: date,
+        customName: customName,
       );
       return poi.toEntity();
     } catch (e) {
@@ -71,6 +75,23 @@ class PoiRepositoryImpl implements AbstractPoiRepository {
   Future<void> clearData() async {
     try {
       await poiDataSource.clearData();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<String>> updatePois(
+    List<Poi> pois,
+  ) {
+    try {
+      return poiDataSource.updatePois(
+        pois
+            .map(
+              (e) => e.fromEntity(),
+            )
+            .toList(),
+      );
     } catch (e) {
       rethrow;
     }

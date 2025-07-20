@@ -8,8 +8,11 @@ abstract class AbstractPoiRepository {
     required double latitude,
     required String name,
     required int ordinal,
+    required DateTime? date,
+    required String? customName,
   });
   Future<Poi?> deletePoi(String id);
   Future<Poi?> updatePoi(Poi poi);
+  Future<List<String>> updatePois(List<Poi> pois);
   Future<void> clearData();
 }

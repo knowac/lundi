@@ -30,6 +30,8 @@ class Pois extends _$Pois {
         latitude: latitude,
         name: name,
         ordinal: newOrdinal,
+        date: DateTime.now(),
+        customName: 'point: $newOrdinal',
       ),
     );
     result.when(
