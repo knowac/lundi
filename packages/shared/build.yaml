@@ -22,7 +22,3 @@ targets:
             - lib/models/*.dart
         options:
           explicit_to_json: true
-      hive_generator:
-        generate_for:
-          include:
-            - lib/models/*/{*,**/*}.dart

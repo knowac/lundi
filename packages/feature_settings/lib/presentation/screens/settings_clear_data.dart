@@ -36,7 +36,7 @@ class _SettingsClearDataState extends ConsumerState<SettingsClearData> {
                 .watch(settingsProvider)
                 .when(
                   data: (data) => Text(S.of(context).settingsClearData),
-                  error: (error, stackTrace) => Text('Error. Retry.'),
+                  error: (error, stackTrace) => const Text('Error. Retry.'),
                   loading: () => const CircularProgressIndicator(),
                 ),
           ),

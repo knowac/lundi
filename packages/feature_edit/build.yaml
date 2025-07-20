@@ -18,7 +18,7 @@ targets:
             - lib/domain/models/*.dart
         options:
           explicit_to_json: true
-      mockito:mockito:
+      mockito:mockito_generator:
         generate_for:
           include:
             - test/**/*_test.dart

@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/packages/app/app.iml" filepath="$PROJECT_DIR$/packages/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/packages/feature_auth/melos_feature_auth.iml" filepath="$PROJECT_DIR$/packages/feature_auth/melos_feature_auth.iml" />
-      <module fileurl="file://$PROJECT_DIR$/packages/feature_home/melos_feature_home.iml" filepath="$PROJECT_DIR$/packages/feature_home/melos_feature_home.iml" />
-      <module fileurl="file://$PROJECT_DIR$/packages/feature_plan/melos_feature_plan.iml" filepath="$PROJECT_DIR$/packages/feature_plan/melos_feature_plan.iml" />
-      <module fileurl="file://$PROJECT_DIR$/melos_lundi.iml" filepath="$PROJECT_DIR$/melos_lundi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/packages/shared/melos_shared.iml" filepath="$PROJECT_DIR$/packages/shared/melos_shared.iml" />
-      <module fileurl="file://$PROJECT_DIR$/packages/widgets/melos_widgets.iml" filepath="$PROJECT_DIR$/packages/widgets/melos_widgets.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/app/melos_app.iml" filepath="$PROJECT_DIR$/packages/app/melos_app.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_assistant/melos_feature_assistant.iml" filepath="$PROJECT_DIR$/packages/feature_assistant/melos_feature_assistant.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_auth/melos_feature_auth.iml" filepath="$PROJECT_DIR$/packages/feature_auth/melos_feature_auth.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_edit/melos_feature_edit.iml" filepath="$PROJECT_DIR$/packages/feature_edit/melos_feature_edit.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_home/melos_feature_home.iml" filepath="$PROJECT_DIR$/packages/feature_home/melos_feature_home.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_map/melos_feature_map.iml" filepath="$PROJECT_DIR$/packages/feature_map/melos_feature_map.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_plan/melos_feature_plan.iml" filepath="$PROJECT_DIR$/packages/feature_plan/melos_feature_plan.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/feature_settings/melos_feature_settings.iml" filepath="$PROJECT_DIR$/packages/feature_settings/melos_feature_settings.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/shared/melos_shared.iml" filepath="$PROJECT_DIR$/packages/shared/melos_shared.iml" />
+<module fileurl="file://$PROJECT_DIR$/packages/widgets/melos_widgets.iml" filepath="$PROJECT_DIR$/packages/widgets/melos_widgets.iml" />
+<module fileurl="file://$PROJECT_DIR$/melos_lundi.iml" filepath="$PROJECT_DIR$/melos_lundi.iml" />
     </modules>
   </component>
 </project>
