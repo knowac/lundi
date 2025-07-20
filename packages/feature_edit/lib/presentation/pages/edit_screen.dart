@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
 import 'package:shared/generated/l10n.dart';
-import 'package:shared/models/plan_item.dart';
+import 'package:shared/models/poi_model.dart';
 import 'package:shared/providers/plan_provider.dart';
 
 /// EditScreen class
@@ -37,8 +37,6 @@ class _EditScreenState extends ConsumerState<EditScreen>
     super.dispose();
   }
 
-  List<PlanItem> _plan = [];
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -46,8 +44,8 @@ class _EditScreenState extends ConsumerState<EditScreen>
 
     final plan = ref.watch(planProvider);
 
-    _plan = plan.maybeWhen(
-      orElse: () => [],
+    final fetchedPlan = plan.maybeWhen(
+      orElse: () => <PoiModel>[],
       data: (data) => data,
     );
     return Stack(
@@ -125,7 +123,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
                   margin: const EdgeInsets.symmetric(
                     horizontal: 16,
                   ),
-                  decoration: index == _plan.length
+                  decoration: index == fetchedPlan.length
                       ? null
                       : BoxDecoration(
                           border: Border(
@@ -150,13 +148,13 @@ class _EditScreenState extends ConsumerState<EditScreen>
                     ),
                     titleAlignment: ListTileTitleAlignment.center,
                     title: Text(
-                      _plan[index].date?.toString() ?? '',
+                      fetchedPlan[index].date?.toString() ?? '',
                       style: GoogleFonts.roboto().copyWith(
                         color: colorScheme.onSurface,
                       ),
                     ),
                     subtitle: Text(
-                      _plan[index].place,
+                      fetchedPlan[index].customName ?? '',
                       style: GoogleFonts.roboto().copyWith(
                         color: colorScheme.onSurface,
                       ),

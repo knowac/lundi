@@ -10,6 +10,8 @@ abstract class Poi with _$Poi {
     required double latitude,
     required String name,
     required int ordinal,
+    required DateTime? date,
+    required String? customName,
   }) = _Poi;
   Poi._();
 }

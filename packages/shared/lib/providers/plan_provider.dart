@@ -1,7 +1,8 @@
+// ignored because it is fake negative
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
-import 'package:shared/models/plan_item.dart';
 import 'package:shared/models/poi_model.dart';
 
 part 'plan_provider.g.dart';
@@ -10,16 +11,13 @@ part 'plan_provider.g.dart';
 @riverpod
 class Plan extends _$Plan {
   @override
-  FutureOr<List<PlanItem>> build() => [];
+  FutureOr<List<PoiModel>> build() => [];
 
   /// Fetch plan
   Future<void> fetch() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () async =>
-          (await ref.read(ServiceLocator.get<AbstractSharedMap>()).getPois())
-              .map((poi) => poi.toPlanItem())
-              .toList(),
+      () => ref.read(ServiceLocator.get<AbstractSharedMap>()).getPois(),
     );
   }
 
@@ -37,11 +35,4 @@ class Plan extends _$Plan {
     //   return _plan;
     // });
   }
-}
-
-extension PlanExtension on PoiModel {
-  PlanItem toPlanItem() => PlanItem(
-    date: DateTime.now(),
-    place: ordinal.toString(),
-  );
 }

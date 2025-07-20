@@ -8,23 +8,38 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:shared/generated/l10n.dart';
-import 'package:shared/models/plan_item.dart';
+import 'package:shared/models/poi_model.dart';
 import 'package:shared/providers/plan_provider.dart';
 
-class MockPlan2 extends AutoDisposeAsyncNotifier<List<PlanItem>>
+class MockPlan2 extends AutoDisposeAsyncNotifier<List<PoiModel>>
     with Mock
     implements Plan {
-  final _plan = <PlanItem>[
-    PlanItem(date: DateTime.parse('2024-06-10'), place: 'Reykjavik'),
-    PlanItem(date: DateTime.parse('2024-06-11'), place: 'Thingvellir'),
-    PlanItem(date: DateTime.parse('2024-06-12'), place: 'Hengifoss'),
-    PlanItem(date: DateTime.parse('2024-06-13'), place: 'Skogafoss'),
-    PlanItem(date: DateTime.parse('2024-06-14'), place: 'Thakgil'),
-    PlanItem(date: DateTime.parse('2024-06-15'), place: 'Jokulsarlon'),
+  final _plan = <PoiModel>[
+    PoiModel.dummy(
+      date: DateTime.parse('2024-06-10'),
+      customName: 'Reykjavik',
+    ),
+    PoiModel.dummy(
+      date: DateTime.parse('2024-06-11'),
+      customName: 'Thingvellir',
+    ),
+    PoiModel.dummy(
+      date: DateTime.parse('2024-06-12'),
+      customName: 'Hengifoss',
+    ),
+    PoiModel.dummy(date: DateTime.parse('2024-06-13'), customName: 'Skogafoss'),
+    PoiModel.dummy(
+      date: DateTime.parse('2024-06-14'),
+      customName: 'Thakgil',
+    ),
+    PoiModel.dummy(
+      date: DateTime.parse('2024-06-15'),
+      customName: 'Jokulsarlon',
+    ),
   ];
 
   @override
-  FutureOr<List<PlanItem>> build() => Future.value(_plan);
+  FutureOr<List<PoiModel>> build() => Future.value(_plan);
 
   // void fetch() async {
   //   state = AsyncLoading();

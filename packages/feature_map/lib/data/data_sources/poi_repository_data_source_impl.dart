@@ -21,6 +21,8 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
       latitude: latitude,
       name: name,
       ordinal: ordinal,
+      date: null,
+      customName: null,
     );
     await _box.put(poi.id, poi);
     return poi;
