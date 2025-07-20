@@ -1,6 +1,6 @@
 import 'package:feature_map/data/data_sources/poi_repository_data_source.dart';
+import 'package:feature_map/data/models/poi_model.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:shared/models/poi_model.dart';
 import 'package:uuid/uuid.dart';
 
 class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {

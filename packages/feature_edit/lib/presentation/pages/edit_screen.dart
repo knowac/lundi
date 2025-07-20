@@ -6,8 +6,8 @@ import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
+import 'package:shared/domain/entities/poi.dart';
 import 'package:shared/generated/l10n.dart';
-import 'package:shared/models/poi_model.dart';
 import 'package:shared/providers/plan_provider.dart';
 
 /// EditScreen class
@@ -45,7 +45,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
     final plan = ref.watch(planProvider);
 
     final fetchedPlan = plan.maybeWhen(
-      orElse: () => <PoiModel>[],
+      orElse: () => <Poi>[],
       data: (data) => data,
     );
     return Stack(

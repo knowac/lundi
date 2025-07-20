@@ -7,39 +7,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import 'package:shared/domain/entities/poi.dart';
 import 'package:shared/generated/l10n.dart';
-import 'package:shared/models/poi_model.dart';
 import 'package:shared/providers/plan_provider.dart';
 
-class MockPlan2 extends AutoDisposeAsyncNotifier<List<PoiModel>>
+class MockPlan2 extends AutoDisposeAsyncNotifier<List<Poi>>
     with Mock
     implements Plan {
-  final _plan = <PoiModel>[
-    PoiModel.dummy(
+  final _plan = <Poi>[
+    Poi.dummy(
       date: DateTime.parse('2024-06-10'),
       customName: 'Reykjavik',
     ),
-    PoiModel.dummy(
+    Poi.dummy(
       date: DateTime.parse('2024-06-11'),
       customName: 'Thingvellir',
     ),
-    PoiModel.dummy(
+    Poi.dummy(
       date: DateTime.parse('2024-06-12'),
       customName: 'Hengifoss',
     ),
-    PoiModel.dummy(date: DateTime.parse('2024-06-13'), customName: 'Skogafoss'),
-    PoiModel.dummy(
+    Poi.dummy(date: DateTime.parse('2024-06-13'), customName: 'Skogafoss'),
+    Poi.dummy(
       date: DateTime.parse('2024-06-14'),
       customName: 'Thakgil',
     ),
-    PoiModel.dummy(
+    Poi.dummy(
       date: DateTime.parse('2024-06-15'),
       customName: 'Jokulsarlon',
     ),
   ];
 
   @override
-  FutureOr<List<PoiModel>> build() => Future.value(_plan);
+  FutureOr<List<Poi>> build() => Future.value(_plan);
 
   // void fetch() async {
   //   state = AsyncLoading();

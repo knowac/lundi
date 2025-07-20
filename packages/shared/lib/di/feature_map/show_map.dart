@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared/models/poi_model.dart';
+import 'package:shared/domain/entities/poi.dart';
 
 abstract class AbstractSharedMap {
   Widget getRegionMap();
-  Future<List<PoiModel>> getPois();
+  Future<List<Poi>> getPois();
   Future<void> clearPoiData();
 }

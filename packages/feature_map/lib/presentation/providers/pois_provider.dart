@@ -1,6 +1,6 @@
 import 'package:feature_map/di/usecase_provider.dart';
-import 'package:feature_map/domain/entities/poi.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared/domain/entities/poi.dart';
 
 part 'pois_provider.g.dart';
 

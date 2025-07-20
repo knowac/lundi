@@ -1,4 +1,4 @@
-import 'package:feature_map/domain/entities/poi.dart';
+import 'package:shared/domain/entities/poi.dart';
 
 abstract class AbstractPoiRepository {
   Future<Poi> getPoi(String id);

@@ -1,4 +1,3 @@
-import 'package:feature_map/data/models/poi_model.dart';
 import 'package:feature_map/di/repository_provider.dart';
 import 'package:feature_map/presentation/widgets/region_map.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
-import 'package:shared/models/poi_model.dart';
+import 'package:shared/domain/entities/poi.dart';
 
 part 'shared_providers.g.dart';
 
@@ -17,17 +16,8 @@ Future<void> clearPoiData(Ref ref) =>
 @riverpod
 class GetPois extends _$GetPois {
   @override
-  FutureOr<List<PoiModel>> build() => [];
-  Future<List<PoiModel>> fetch() => ref
-      .read(poiRepositoryProvider)
-      .getPois()
-      .then(
-        (pois) => pois
-            .map(
-              (poi) => poi.fromEntity(),
-            )
-            .toList(),
-      );
+  FutureOr<List<Poi>> build() => [];
+  Future<List<Poi>> fetch() => ref.read(poiRepositoryProvider).getPois();
 }
 
 /// Provider to show a region map.
@@ -40,8 +30,7 @@ class SharedMap implements AbstractSharedMap {
   @override
   Widget getRegionMap() => ref.read(getRegionMapProvider);
   @override
-  Future<List<PoiModel>> getPois() =>
-      ref.read(getPoisProvider.notifier).fetch();
+  Future<List<Poi>> getPois() => ref.read(getPoisProvider.notifier).fetch();
   @override
   Future<void> clearPoiData() => ref.read(poiRepositoryProvider).clearData();
 }

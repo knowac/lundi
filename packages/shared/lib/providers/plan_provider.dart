@@ -3,7 +3,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
-import 'package:shared/models/poi_model.dart';
+import 'package:shared/domain/entities/poi.dart';
 
 part 'plan_provider.g.dart';
 
@@ -11,7 +11,7 @@ part 'plan_provider.g.dart';
 @riverpod
 class Plan extends _$Plan {
   @override
-  FutureOr<List<PoiModel>> build() => [];
+  FutureOr<List<Poi>> build() => [];
 
   /// Fetch plan
   Future<void> fetch() async {
