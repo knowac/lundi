@@ -81,17 +81,14 @@ class PoiRepositoryImpl implements AbstractPoiRepository {
   }
 
   @override
-  Future<List<String>> updatePois(
+  Future<List<Poi>> updatePois(
     List<Poi> pois,
-  ) {
+  ) async {
     try {
-      return poiDataSource.updatePois(
-        pois
-            .map(
-              (e) => e.fromEntity(),
-            )
-            .toList(),
+      final result = await poiDataSource.updatePois(
+        pois.fromEntity(),
       );
+      return result.toEntity();
     } catch (e) {
       rethrow;
     }

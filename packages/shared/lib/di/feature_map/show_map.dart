@@ -6,5 +6,5 @@ abstract class AbstractSharedMap {
   Future<List<Poi>> getPois();
   Future<void> clearPoiData();
   Future<void> updatePoi(Poi poi);
-  Future<List<String>> updatePois(List<Poi> pois);
+  Future<List<Poi>> updatePois(List<Poi> pois);
 }

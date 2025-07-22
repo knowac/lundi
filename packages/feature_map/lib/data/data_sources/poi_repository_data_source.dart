@@ -13,6 +13,6 @@ abstract class PoiRepositoryDataSource {
   });
   Future<PoiModel?> deletePoi(String id);
   Future<PoiModel?> updatePoi(PoiModel poi);
-  Future<List<String>> updatePois(List<PoiModel> pois);
+  Future<List<PoiModel>> updatePois(List<PoiModel> pois);
   Future<void> clearData();
 }

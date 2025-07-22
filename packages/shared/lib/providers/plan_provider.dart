@@ -33,17 +33,18 @@ class Plan extends _$Plan {
       }
       final provider = ServiceLocator.get<AbstractSharedMap>();
       final sharedMap = ref.read(provider);
-      var pois = await sharedMap.getPois();
-      pois.swap(oldIndex, newIndex);
-      pois = pois.asMap().entries.map(
-        (poiEntry) {
-          final index = poiEntry.key;
-          final poi = poiEntry.value;
-          return poi.copyWith(ordinal: index);
-        },
-      ).toList();
+      final pois = await sharedMap.getPois();
 
-      final updatedPois = await sharedMap.updatePois(pois);
+      final poiToMove = pois.removeAt(oldIndex);
+      pois.insert(oldIndex > newIndex ? newIndex : newIndex - 1, poiToMove);
+      final updatedPois = pois
+          .mapIndexed(
+            (index, poi) => poi.copyWith(ordinal: index),
+          )
+          .sortedBy((poi) => poi.ordinal)
+          .toList();
+
+      return sharedMap.updatePois(updatedPois);
     });
   }
 }

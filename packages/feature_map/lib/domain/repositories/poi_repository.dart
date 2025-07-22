@@ -13,6 +13,6 @@ abstract class AbstractPoiRepository {
   });
   Future<Poi?> deletePoi(String id);
   Future<Poi?> updatePoi(Poi poi);
-  Future<List<String>> updatePois(List<Poi> pois);
+  Future<List<Poi>> updatePois(List<Poi> pois);
   Future<void> clearData();
 }

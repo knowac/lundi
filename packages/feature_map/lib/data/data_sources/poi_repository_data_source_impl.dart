@@ -44,7 +44,11 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   Future<PoiModel> getPoi(String id) => Future.value(_box.get(id));
 
   @override
-  Future<List<PoiModel>> getPois() => Future.value(_box.values.toList());
+  Future<List<PoiModel>> getPois() {
+    final pois = _box.values.toList()
+      ..sort((poiA, poiB) => poiA.ordinal.compareTo(poiB.ordinal));
+    return Future.value(pois);
+  }
 
   @override
   Future<PoiModel?> updatePoi(PoiModel poi) async {
@@ -61,14 +65,10 @@ class PoiRepositoryDataSourceImpl implements PoiRepositoryDataSource {
   }
 
   @override
-  Future<List<String>> updatePois(List<PoiModel> pois) async {
-    final ids = <String>[];
-    await Future.forEach(pois, (poi) async {
-      if (_box.containsKey(poi.id)) {
-        await _box.put(poi.id, poi);
-        ids.add(poi.id);
-      }
+  Future<List<PoiModel>> updatePois(List<PoiModel> pois) async {
+    await _box.putAll({
+      for (final poi in pois) poi.id: poi,
     });
-    return ids;
+    return pois;
   }
 }
