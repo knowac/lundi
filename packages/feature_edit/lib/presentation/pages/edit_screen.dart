@@ -8,6 +8,7 @@ import 'package:shared/di/feature_map/show_map.dart';
 import 'package:shared/di/service_locator.dart';
 import 'package:shared/domain/entities/poi.dart';
 import 'package:shared/generated/l10n.dart';
+import 'package:shared/helpers/date_time_helper.dart';
 import 'package:shared/providers/plan_provider.dart';
 
 /// EditScreen class
@@ -148,7 +149,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
                     ),
                     titleAlignment: ListTileTitleAlignment.center,
                     title: Text(
-                      fetchedPlan[index].date?.toString() ?? '',
+                      fetchedPlan[index].date?.toDateString() ?? '',
                       style: GoogleFonts.roboto().copyWith(
                         color: colorScheme.onSurface,
                       ),
