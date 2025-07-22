@@ -51,18 +51,10 @@ class _EditScreenState extends ConsumerState<EditScreen>
     );
     return Stack(
       children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Container(
-            height: double.infinity,
-            color: colorScheme.secondaryContainer,
-            child: ref
-                .read(ServiceLocator.get<AbstractSharedMap>())
-                .getRegionMap(),
-          ),
+        SafeArea(
+          child: ref
+              .read(ServiceLocator.get<AbstractSharedMap>())
+              .getRegionMap(),
         ),
         SlidingBox(
           style: BoxStyle.sheet,
@@ -170,12 +162,6 @@ class _EditScreenState extends ConsumerState<EditScreen>
               ),
             ],
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(color: colorScheme.surface, height: 80),
         ),
       ],
     );

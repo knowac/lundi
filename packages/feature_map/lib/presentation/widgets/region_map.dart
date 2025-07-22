@@ -15,8 +15,13 @@ class RegionMap extends ConsumerStatefulWidget {
 }
 
 class _RegionMapState extends ConsumerState<RegionMap> {
-  static const _initialCenter = LatLng(64.9631, -19.0208);
-  static const _initialZoom = 7.0;
+  static const _initialZoom = 7.1;
+
+  static final _icelandBounds = LatLngBounds(
+    const LatLng(62.4, -24.6),
+    const LatLng(66.8, -13.4),
+  );
+
   @override
   void initState() {
     _mapController = MapController();
@@ -42,17 +47,27 @@ class _RegionMapState extends ConsumerState<RegionMap> {
     });
     return tiles.maybeWhen(
       orElse: () => const Placeholder(),
-      error: (error, stackTrace) => Center(child: Text(error.toString())),
+      error: (error, stackTrace) => Center(
+        child: Text(
+          error.toString(),
+        ),
+      ),
       data: (mbTilesProvider) => Stack(
-        alignment: Alignment.bottomRight,
-        clipBehavior: Clip.none,
         children: [
           FlutterMap(
             options: MapOptions(
-              initialCenter: _initialCenter,
+              initialCenter: _icelandBounds.center,
               initialZoom: _initialZoom,
               maxZoom: 12,
               minZoom: _initialZoom,
+              interactionOptions: const InteractionOptions(
+                flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+              ),
+              // TODO(kano): Check if you can find solution for rotation crash
+              // TODO(kano): when we are in min zoom and next to bottom border.
+              cameraConstraint: CameraConstraint.contain(
+                bounds: _icelandBounds,
+              ),
               onTap: (tapPosition, point) => ref
                   .read(poisProvider.notifier)
                   .addPoi(
@@ -122,16 +137,31 @@ class _RegionMapState extends ConsumerState<RegionMap> {
                       .toList(),
                 ),
               ),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.1,
+                left: 8,
+                child: RichAttributionWidget(
+                  alignment: AttributionAlignment.bottomLeft,
+                  showFlutterMapAttribution: false,
+                  popupInitialDisplayDuration: const Duration(seconds: 1),
+                  popupBackgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primary.withAlpha(128),
+                  attributions: const [
+                    TextSourceAttribution('OpenStreetMap'),
+                  ],
+                ),
+              ),
             ],
           ),
           Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.2,
-            right: 16,
+            bottom: (MediaQuery.of(context).size.height * 0.1) + 16,
+            right: 8,
             child: FloatingActionButton(
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
                 _mapController.moveAndRotate(
-                  _initialCenter,
+                  _icelandBounds.center,
                   _initialZoom,
                   0,
                 );
