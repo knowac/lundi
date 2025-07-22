@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flutter,intellij,androidstudio,android,appcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=flutter,intellij,androidstudio,android,appcode
 
+.idea/libraries/Dart_SDK.xml
+.idea/libraries/Flutter_Plugins.xml
+
 .trash/
 *.freezed.dart
 *.g.dart
