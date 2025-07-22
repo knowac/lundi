@@ -3,6 +3,7 @@ import 'package:feature_map/presentation/providers/tiles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared/providers/data_cleared_provider.dart';
 
@@ -70,8 +71,9 @@ class _RegionMapState extends ConsumerState<RegionMap> {
                   data: (pois) => pois
                       .map(
                         (poi) => Marker(
-                          width: 40,
-                          height: 40,
+                          alignment: Alignment.topCenter,
+                          height: 64,
+                          width: 50,
                           point: LatLng(
                             poi.latitude,
                             poi.longitude,
@@ -84,10 +86,35 @@ class _RegionMapState extends ConsumerState<RegionMap> {
                                     id: poi.id,
                                   );
                             },
-                            child: Icon(
-                              size: 40,
-                              Icons.location_on,
-                              color: Theme.of(context).colorScheme.primary,
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(
+                                    2,
+                                  ),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withAlpha(128),
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    poi.ordinal.toString(),
+                                    style: GoogleFonts.roboto().copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.surface,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  size: 40,
+                                  Icons.location_on,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary,
+                                ),
+                              ],
                             ),
                           ),
                         ),
