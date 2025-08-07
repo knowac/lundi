@@ -1,6 +1,8 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:feature_map/di/usecase_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared/domain/entities/poi.dart';
+import 'package:shared/providers/data_updated_provider.dart';
 
 part 'pois_provider.g.dart';
 
@@ -17,31 +19,35 @@ class Pois extends _$Pois {
     required double latitude,
     required String name,
   }) async {
-    state = const AsyncValue.loading();
+    try {
+      state = const AsyncValue.loading();
 
-    final previousStateValue = state.valueOrNull ?? [];
-    final newOrdinal = previousStateValue.length;
+      final previousStateValue = state.valueOrNull ?? [];
+      final newOrdinal = previousStateValue.length;
 
-    final addPoiUseCase = ref.read(addPoiUseCaseProvider);
+      final addPoiUseCase = ref.read(addPoiUseCaseProvider);
 
-    final result = await AsyncValue.guard(
-      () => addPoiUseCase.call(
-        longitude: longitude,
-        latitude: latitude,
-        name: name,
-        ordinal: newOrdinal,
-        date: DateTime.now(),
-        customName: 'point: $newOrdinal',
-      ),
-    );
-    result.when(
-      data: (addedPoiFromUseCase) {
-        final currentList = state.valueOrNull ?? [];
-        state = AsyncValue.data([...currentList, addedPoiFromUseCase]);
-      },
-      error: AsyncValue.error,
-      loading: AsyncValue.loading,
-    );
+      final result = await AsyncValue.guard(
+        () => addPoiUseCase.call(
+          longitude: longitude,
+          latitude: latitude,
+          name: name,
+          ordinal: newOrdinal,
+          date: DateTime.now(),
+          customName: 'point: $newOrdinal',
+        ),
+      );
+      result.when(
+        data: (addedPoiFromUseCase) {
+          final currentList = state.valueOrNull ?? [];
+          state = AsyncValue.data([...currentList, addedPoiFromUseCase]);
+        },
+        error: AsyncValue.error,
+        loading: AsyncValue.loading,
+      );
+    } finally {
+      ref.read(dataUpdatedProvider.notifier).notify();
+    }
   }
 
   Future<void> deletePoi({
@@ -71,21 +77,25 @@ class Pois extends _$Pois {
     );
     result.when(
       data: (removedPoiFromUseCase) {
-        final currentList = state.valueOrNull ?? []
-          ..removeWhere((poi) => poi.id == id);
-        if (removedPoiFromUseCase != null) {
-          final modifiedCurrentList = currentList.map(
-            (poi) {
-              if (poi.ordinal > removedPoiFromUseCase.ordinal) {
-                return poi.copyWith(ordinal: poi.ordinal - 1);
-              }
-              return poi;
-            },
-          ).toList();
-          state = AsyncValue.data(modifiedCurrentList);
-          return;
+        try {
+          final currentList = state.valueOrNull ?? []
+            ..removeWhere((poi) => poi.id == id);
+          if (removedPoiFromUseCase != null) {
+            final modifiedCurrentList = currentList.map(
+              (poi) {
+                if (poi.ordinal > removedPoiFromUseCase.ordinal) {
+                  return poi.copyWith(ordinal: poi.ordinal - 1);
+                }
+                return poi;
+              },
+            ).toList();
+            state = AsyncValue.data(modifiedCurrentList);
+            return;
+          }
+          state = AsyncValue.data(currentList);
+        } finally {
+          ref.read(dataUpdatedProvider.notifier).notify();
         }
-        state = AsyncValue.data(currentList);
       },
       error: AsyncValue.error,
       loading: AsyncValue.loading,

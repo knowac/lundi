@@ -39,11 +39,18 @@ class _EditScreenState extends ConsumerState<EditScreen>
     super.dispose();
   }
 
+  void _dataChangedReceiver(prev, next) {
+    if (prev != next) {
+      ref.invalidate(planProvider);
+      unawaited(ref.read(planProvider.notifier).fetch());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final colorScheme = Theme.of(context).colorScheme;
-
+    ref.listen(dataUpdatedProvider, _dataChangedReceiver);
     final plan = ref.watch(planProvider);
 
     final fetchedPlan = plan.maybeWhen(
