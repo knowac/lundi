@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flutter,intellij,androidstudio,android,appcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=flutter,intellij,androidstudio,android,appcode
 
+.github/
+*.prompt.md
+
 .idea/libraries/Dart_SDK.xml
 .idea/libraries/Flutter_Plugins.xml
 
