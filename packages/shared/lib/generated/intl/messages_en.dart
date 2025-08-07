@@ -26,6 +26,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "editExplanation": MessageLookupByLibrary.simpleMessage(
       "Here you can modify your trip plan",
     ),
+    "editNothingToShow": MessageLookupByLibrary.simpleMessage(
+      "Nothing to show yet",
+    ),
     "editTitle": MessageLookupByLibrary.simpleMessage("Edit trip"),
     "homeMessageBody": MessageLookupByLibrary.simpleMessage(
       "Lundi is the app designed to help you organize the trip best suited to your needs. Just fill the form and app will automatically find the most interesting route.\nYour data is completely anonymous, not shared with anyone and stored only on this device.",

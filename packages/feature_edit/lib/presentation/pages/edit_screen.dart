@@ -39,13 +39,26 @@ class _EditScreenState extends ConsumerState<EditScreen>
     super.dispose();
   }
 
-  void _dataChangedReceiver(prev, next) {
+  void _dataChangedReceiver(int? prev, int next) {
     if (prev != next) {
       ref.invalidate(planProvider);
       unawaited(ref.read(planProvider.notifier).fetch());
     }
   }
 
+  Widget notingToShowWidget(int index) => Padding(
+    key: Key(
+      index.toString(),
+    ),
+    padding: const EdgeInsetsGeometry.all(16),
+    child: Text(
+      S.of(context).editNothingToShow,
+      style: GoogleFonts.roboto().copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -96,6 +109,7 @@ class _EditScreenState extends ConsumerState<EditScreen>
                     ),
                     Text(
                       S.of(context).editExplanation,
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.roboto().copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
@@ -121,55 +135,60 @@ class _EditScreenState extends ConsumerState<EditScreen>
                 },
                 shrinkWrap: true,
                 primary: false,
-                itemBuilder: (context, index) => Container(
-                  key: Key(
-                    index.toString(),
-                  ),
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
-                  decoration: index == fetchedPlan.length
-                      ? null
-                      : BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: colorScheme.outline,
+                itemBuilder: (context, index) => plan.maybeWhen(
+                  orElse: () => notingToShowWidget(index),
+                  data: (data) => data.isEmpty
+                      ? notingToShowWidget(index)
+                      : Container(
+                          key: Key(
+                            index.toString(),
+                          ),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                          ),
+                          decoration: index == fetchedPlan.length
+                              ? null
+                              : BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: colorScheme.outline,
+                                    ),
+                                  ),
+                                ),
+                          child: ListTile(
+                            minVerticalPadding: 8,
+                            minTileHeight: 0,
+                            horizontalTitleGap: 8,
+                            leading: Text(
+                              index.toString(),
+                              style: GoogleFonts.roboto().copyWith(
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.more_vert,
+                              color: colorScheme.onSurface,
+                            ),
+                            titleAlignment: ListTileTitleAlignment.center,
+                            title: Text(
+                              fetchedPlan[index].date?.toDateString() ?? '',
+                              style: GoogleFonts.roboto().copyWith(
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                            subtitle: Text(
+                              fetchedPlan[index].customName ?? '',
+                              style: GoogleFonts.roboto().copyWith(
+                                color: colorScheme.onSurface,
+                              ),
                             ),
                           ),
                         ),
-                  child: ListTile(
-                    minVerticalPadding: 8,
-                    minTileHeight: 0,
-                    horizontalTitleGap: 8,
-                    leading: Text(
-                      index.toString(),
-                      style: GoogleFonts.roboto().copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.more_vert,
-                      color: colorScheme.onSurface,
-                    ),
-                    titleAlignment: ListTileTitleAlignment.center,
-                    title: Text(
-                      fetchedPlan[index].date?.toDateString() ?? '',
-                      style: GoogleFonts.roboto().copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    subtitle: Text(
-                      fetchedPlan[index].customName ?? '',
-                      style: GoogleFonts.roboto().copyWith(
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
                 ),
                 itemCount: plan.maybeWhen(
                   orElse: () => 0,
                   error: (e, st) => 0,
-                  data: (data) => data.length,
+                  data: (data) => data.isEmpty ? 1 : data.length,
                 ),
               ),
             ],

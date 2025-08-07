@@ -234,6 +234,16 @@ class S {
     );
   }
 
+  /// `Nothing to show yet`
+  String get editNothingToShow {
+    return Intl.message(
+      'Nothing to show yet',
+      name: 'editNothingToShow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign Up`
   String get settingsSignUp {
     return Intl.message('Sign Up', name: 'settingsSignUp', desc: '', args: []);

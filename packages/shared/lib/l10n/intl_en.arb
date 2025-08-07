@@ -18,6 +18,7 @@
   "planCalculateRouteButton": "Calculate route",
   "editTitle": "Edit trip",
   "editExplanation": "Here you can modify your trip plan",
+  "editNothingToShow": "Nothing to show yet",
   "settingsSignUp": "Sign Up",
   "settingsSignIn": "Sign In",
   "settingsSignOut": "Sign Out",
