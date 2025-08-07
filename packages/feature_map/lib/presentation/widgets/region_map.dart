@@ -6,8 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared/providers/data_cleared_provider.dart';
+import 'package:shared/providers/data_updated_provider.dart';
 
+/// RegionMap class - Widget displaying the Map of the region
 class RegionMap extends ConsumerStatefulWidget {
+  /// RegionMap constructor
   const RegionMap({super.key});
 
   @override
@@ -36,15 +39,19 @@ class _RegionMapState extends ConsumerState<RegionMap> {
 
   late MapController _mapController;
 
+  void _dataChangedReceiver(prev, next) {
+    if (prev != next) {
+      ref.invalidate(poisProvider);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final pois = ref.watch(poisProvider);
     final tiles = ref.watch(tilesProvider);
-    ref.listen(dataClearedProvider, (prev, next) {
-      if (prev != next) {
-        ref.invalidate(poisProvider);
-      }
-    });
+    ref
+      ..listen(dataClearedProvider, _dataChangedReceiver)
+      ..listen(dataUpdatedProvider, _dataChangedReceiver);
     return tiles.maybeWhen(
       orElse: () => const Placeholder(),
       error: (error, stackTrace) => Center(

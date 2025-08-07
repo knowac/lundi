@@ -9,6 +9,7 @@ import 'package:shared/di/service_locator.dart';
 import 'package:shared/domain/entities/poi.dart';
 import 'package:shared/generated/l10n.dart';
 import 'package:shared/helpers/date_time_helper.dart';
+import 'package:shared/providers/data_updated_provider.dart';
 import 'package:shared/providers/plan_provider.dart';
 
 /// EditScreen class
@@ -104,6 +105,10 @@ class _EditScreenState extends ConsumerState<EditScreen>
                         .reorder(
                           from,
                           to,
+                        )
+                        .then(
+                          (val) =>
+                              ref.read(dataUpdatedProvider.notifier).notify(),
                         ),
                   );
                 },
